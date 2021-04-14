@@ -1,0 +1,10 @@
+.leader-menu {
+  height: 100vh;
+  background-color: #060607;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+/*# sourceMappingURL=App.css.map */

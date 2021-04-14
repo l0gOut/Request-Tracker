@@ -1,0 +1,126 @@
+# Field Models
+
+type ApplicationTemplate {
+    id: ID
+    name: String
+    description: String
+}
+
+type Role {
+    id: ID
+    roleName: String
+}
+
+type Gender {
+    id: ID
+    codeGender: String
+    genderName: String
+}
+
+type Department {
+    id: ID
+    name: String
+    number: Int
+}
+
+type User {
+    id: ID
+    firstName: String
+    lastName: String
+    middleName: String
+    login: String
+    password: String
+    email: String
+    registrationDate: String
+    phone: String
+    roleId: Role
+    genderId: Gender
+    departmentId: Department
+}
+
+type Application {
+    id: ID
+    name: String
+    description: String
+    userId: User
+}
+
+type Status {
+    id: ID
+    status: String
+}
+
+type ApplicationStatus {
+    id: ID
+    date: String
+    applicationId: Application
+    statusId: Status
+}
+
+# Input Models
+
+input InputApplicationTemplate {
+    name: String!
+    description: String!
+}
+
+input InputRole {
+    roleName: String!
+}
+
+input InputGender {
+    codeGender: String!
+    genderName: String!
+}
+
+input InputDepartment {
+    name: String!
+    number: Int!
+}
+
+input InputUser {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    login: String!
+    password: String!
+    email: String!
+    registrationDate: String
+    phone: String!
+    roleId: InputRole!
+    genderId: InputGender!
+    departmentId: InputDepartment!
+}
+
+input InputApplication {
+    name: String!
+    description: String!
+    userId: InputUser!
+}
+
+input InputStatus {
+    status: String!
+}
+
+input InputApplicationStatus {
+    date: String!
+    applicationId: InputApplication!
+    statusId: InputStatus!
+}
+
+
+# Root Types
+
+type Query {
+    getAllApplicationTemplates: [ApplicationTemplate]!
+    getApplicationTemplateById(id: ID!): ApplicationTemplate!
+
+    getUserById(id: ID!): User!
+}
+
+type Mutation {
+    createApplicationTemplate(input: InputApplicationTemplate!): ApplicationTemplate!
+    deleteApplicationTemplate(id: ID!): ApplicationTemplate!
+
+    createApplicationStatus(input: InputApplicationStatus!): ApplicationStatus!
+}

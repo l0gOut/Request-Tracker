@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap");
+.menu .show-templates, .menu .create-application {
+  height: 60%;
+  width: 60%;
+  min-width: 275px;
+  position: absolute;
+  background-color: #e1e1e1;
+  border: 10px solid black;
+  border-radius: 50px;
+  -webkit-transition: 500ms;
+  transition: 500ms;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu .show-templates .template-header, .menu .create-application .create-application-header {
+  border-width: 0 0 10px 0;
+  border-style: solid;
+  border-color: black;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu .show-templates .template-header h1, .menu .create-application .create-application-header h1 {
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.menu {
+  height: 100%;
+  width: 79.9%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu .show-templates {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.menu .show-templates .templates-container {
+  padding: 5px 0;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.menu .show-templates .templates-container .template-block {
+  margin: 15px 15px;
+  border: 1px solid black;
+  width: 250px;
+  height: 225px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+.menu .show-templates .templates-container .template-block .template-block-header {
+  height: 25%;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: black;
+}
+
+.menu .show-templates .templates-container .template-block .template-block-header h3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  margin: 0;
+}
+
+.menu .show-templates .templates-container .template-block .template-description {
+  padding: 10px 10px;
+  text-align: justify;
+  height: 75%;
+  overflow-y: auto;
+}
+
+.menu .show-templates .templates-container .template-block .template-description p {
+  font-family: 'Source Serif Pro', serif;
+  margin: 0;
+}
+
+.menu .create-application {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.menu .create-application .create-application-form {
+  padding: 5px 0;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-y: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.menu .create-application .create-application-form input {
+  height: 50px;
+  width: 650px;
+  font-size: 28px;
+  outline: none;
+  padding-left: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #afafaf;
+}
+
+.menu .create-application .create-application-form textarea {
+  outline: none;
+  padding: 10px;
+  width: 650px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 18px;
+  margin: 10px 0;
+  border: 1px solid #afafaf;
+  border-radius: 10px;
+}
+
+.menu .create-application .create-application-form button {
+  outline: none;
+  height: 40px;
+  width: 200px;
+  margin: 10px 0;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.menu .create-application .create-application-form button:active {
+  background-color: #1e1e1e;
+}
+/*# sourceMappingURL=Menu.css.map */
