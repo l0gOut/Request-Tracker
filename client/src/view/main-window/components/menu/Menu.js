@@ -28,8 +28,8 @@ function Menu({ templateData}) {
                         <h1>Создание индивидуальной заявки</h1>
                     </div>
                     <div className='create-application-form'>
-                        <input type='text' maxlength='40' placeholder='Введите имя заявки (не больше 40 символов)'/>
-                        <textarea placeholder='Здесь пишите описание проблемы (как можно более подробно)'></textarea>
+                        <input type='text' maxLength='40' placeholder='Введите имя заявки (не больше 40 символов)'/>
+                        <textarea placeholder='Здесь напишите описание проблемы (как можно более подробно)'></textarea>
                         <button>Отправить</button>
                     </div>
             </div>

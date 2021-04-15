@@ -12,18 +12,34 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-header a {
+header a img {
+  width: 40px;
+  height: 40px;
+  margin: 25px;
+}
+
+header div {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header div a {
   color: white;
   text-decoration: none;
   font-size: 24px;
 }
 
-header img {
+header div img {
   border-radius: 50px;
   width: 40px;
   height: 40px;
