@@ -8,11 +8,12 @@ const SequelizeDB = new Sequelize('request_tracker', 'root', '1234', {
 
 // Models
 const Gender = SequelizeDB.define('gender', {
-    code_gender: {
+    codeGender: {
         type: DataTypes.STRING(10),
         allowNull: false,
+        
     },
-    gender_name: {
+    genderName: {
         type: DataTypes.STRING(100),
         allowNull: false,
     }
@@ -23,7 +24,7 @@ const Gender = SequelizeDB.define('gender', {
 });
 
 const Role = SequelizeDB.define('role', {
-    role_name: {
+    roleName: {
         type: DataTypes.STRING(50),
         allowNull: false,
     }
@@ -49,15 +50,15 @@ const Department = SequelizeDB.define('department', {
 });
 
 const User = SequelizeDB.define('user', {
-    first_name: {
+    firstName: {
         type: DataTypes.STRING(50),
         allowNull: false,
     },
-    last_name: {
+    lastName: {
         type: DataTypes.STRING(50),
         allowNull: false,
     },
-    middle_name: {
+    middleName: {
         type: DataTypes.STRING(50)
     },
     login: {
@@ -72,8 +73,9 @@ const User = SequelizeDB.define('user', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
-    registration_date: {
+    registrationDate: {
         type: DataTypes.DATE,
+        defaultValue: new Date(),
     },
     phone: {
         type: DataTypes.STRING(20),

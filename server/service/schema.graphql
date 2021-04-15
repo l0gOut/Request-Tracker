@@ -108,6 +108,11 @@ input InputApplicationStatus {
     statusId: InputStatus!
 }
 
+input GetUser {
+    login: String!
+    password: String!
+}
+
 
 # Root Types
 
@@ -116,7 +121,9 @@ type Query {
     getApplicationTemplateById(id: ID!): ApplicationTemplate!
 
     getUserById(id: ID!): User!
+    getUser(input: GetUser!): User!
 }
+
 
 type Mutation {
     createApplicationTemplate(input: InputApplicationTemplate!): ApplicationTemplate!

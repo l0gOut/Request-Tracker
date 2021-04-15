@@ -14,6 +14,19 @@ let CreateApplicationTemplate = async (input) => {
     return template.get();
 }
 
+let GetUser = async (input) => {
+    const user = await SequelizeDB.User.findOne({
+        where: {
+            login: input.login,
+            password: input.password
+        },
+        
+    });
+    console.log(user)
+    return user.get();
+}
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
+module.exports.GetUser = GetUser;

@@ -23,6 +23,9 @@ const root = {
     },
     createApplicationTemplate: (input) => {
         return Service.CreateApplicationTemplate(input.input);
+    },
+    getUser: (input) => {
+        return Service.GetUser(input.input);
     }
 }
 
