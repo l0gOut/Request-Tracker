@@ -1,7 +1,7 @@
 import React from 'react';
 import './Menu.css';
 
-function Menu({ templateData}) {
+function Menu({ templateData }) {
     return (
         <div className='menu'>
             <div className='show-templates'>

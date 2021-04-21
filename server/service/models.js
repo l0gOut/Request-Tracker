@@ -49,6 +49,26 @@ const Department = SequelizeDB.define('department', {
     tableName: 'department',
 });
 
+const Login = SequelizeDB.define('login', {
+    login: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+    },
+    // Foreign key User
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    createdAt: false,
+    updatedAt: false,
+    tableName: 'login'
+})
+
 const User = SequelizeDB.define('user', {
     firstName: {
         type: DataTypes.STRING(50),
@@ -60,14 +80,6 @@ const User = SequelizeDB.define('user', {
     },
     middleName: {
         type: DataTypes.STRING(50)
-    },
-    login: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-    },
-    password: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
     },
     email: {
         type: DataTypes.STRING(255),
@@ -182,6 +194,11 @@ User.belongsTo(Department, {
     foreignKey: 'departmentId'
 });
 
+User.hasOne(Login, {
+    foreignKey: 'userId'
+})
+Login.belongsTo(User)
+
 Application.belongsTo(User, {
     foreignKey: 'userId'
 });
@@ -199,6 +216,7 @@ module.exports.Sequelize = SequelizeDB;
 module.exports.Gender = Gender;
 module.exports.Role = Role;
 module.exports.Department = Department;
+module.exports.Login = Login;
 module.exports.User = User;
 module.exports.ApplicationTemplate = ApplicationTemplate;
 module.exports.Status = Status;

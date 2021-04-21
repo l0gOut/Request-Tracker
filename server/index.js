@@ -24,9 +24,9 @@ const root = {
     createApplicationTemplate: (input) => {
         return Service.CreateApplicationTemplate(input.input);
     },
-    getUser: (input) => {
-        return Service.GetUser(input.input);
-    }
+    getLogin: (input) => {
+        return Service.GetLogin(input.input);
+    },
 }
 
 // GUI GraphQL

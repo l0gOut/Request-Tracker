@@ -3,11 +3,11 @@ import './Main.css'
 
 function Main() {
     return (
-        <div className='join-block-form'>
-            <input placeholder='Логин' type='text'/>
-            <input placeholder='Пароль' type='password'/>
-            <button>Войти</button>
-        </div>
+        <form method='post' className='join-block-form'>
+            <input placeholder='Логин' type='text' autoComplete='username'/>
+            <input placeholder='Пароль' type='password' autoComplete='current-password'/>
+            <input type="submit" value="Войти"/>
+        </form>
     )
 }
 

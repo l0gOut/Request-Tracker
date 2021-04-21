@@ -20,7 +20,11 @@ header {
 header a img {
   width: 40px;
   height: 40px;
-  margin: 25px;
+  margin: 25px 25px 25px 25px;
+}
+
+header a img:active {
+  margin: 30px 22px 25px 28px;
 }
 
 header div {
