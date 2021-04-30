@@ -95,7 +95,7 @@ type Query {
     getAllApplicationTemplates: [ApplicationTemplate]!
     getApplicationTemplateById(id: ID!): ApplicationTemplate!
 
-    getLogin(input: InputLogin!): Boolean!
+    getLogin(input: InputLogin!): Login!
 }
 
 

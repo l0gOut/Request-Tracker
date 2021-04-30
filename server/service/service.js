@@ -21,7 +21,7 @@ let GetLogin = async (input) => {
             password: input.password,
         }
     });
-    return login[0] !== undefined;
+    return login[0].get();
 }
 
 

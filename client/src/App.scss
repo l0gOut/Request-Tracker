@@ -1,17 +1,8 @@
-.leader-menu {
-    height: 100vh;
-    background-color: #060607;
-    display: flex;
-    flex-wrap: nowrap;
-}
+.navigation-bar {
 
-.not-found-block {
-
-    width: 100%;
-    height: 100%;
-    color: white;
-    font-size: 80px;
-    text-align: center;
-    position: absolute;
+    position: fixed;
+    height: 80px;
+    width: 70%;
+    border: 0 10px solid aqua;
 
 }

@@ -10,9 +10,7 @@ const app = express();
 app.use(cors());
 
 // Read GraphQL file
-const schemaString = readFileSync('./service/schema.graphql', { 
-    encoding: 'utf8' 
-});
+const schemaString = readFileSync('./service/schema.graphql', { encoding: 'utf8' });
 
 const Schema = buildSchema(schemaString);
 
