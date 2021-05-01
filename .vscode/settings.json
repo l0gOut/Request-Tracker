@@ -2,6 +2,22 @@
     "cSpell.words": [
         "QLID",
         "salo"
+    ],
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "user",
+            "database": "request_tracker",
+            "username": "root",
+            "password": "1234",
+            "connectionTimeout": 100000
+        }
     ]
     
 }
