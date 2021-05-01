@@ -1,105 +1,98 @@
 # Field Models
 
 type ApplicationTemplate {
-    id: ID
-    name: String
-    description: String
+  id: ID
+  name: String
+  description: String
 }
 
 type Role {
-    id: ID
-    roleName: String
+  id: ID
+  roleName: String
 }
 
 type Gender {
-    id: ID
-    codeGender: String
-    genderName: String
+  id: ID
+  codeGender: String
+  genderName: String
 }
 
 type Department {
-    id: ID
-    name: String
-    number: Int
+  id: ID
+  name: String
+  number: Int
 }
 
 type User {
-    id: ID
-    firstName: String
-    lastName: String
-    middleName: String
-    email: String
-    registrationDate: String
-    phone: String
-    roleId: Role
-    genderId: Gender
-    departmentId: Department
+  id: ID
+  firstName: String
+  lastName: String
+  middleName: String
+  email: String
+  registrationDate: String
+  phone: String
+  roleId: Role
+  genderId: Gender
+  departmentId: Department
 }
 
 type Login {
-    id: ID
-    login: String
-    password: String
+  id: ID
+  login: String
+  password: String
 }
 
 # Input Models
 
 input InputLogin {
-    id: ID
-    login: String!
-    password: String!
+  id: ID
+  login: String!
+  password: String!
 }
 
 input InputApplicationTemplate {
-    name: String!
-    description: String!
+  name: String!
+  description: String!
 }
 
 input InputRole {
-    roleName: String!
+  roleName: String!
 }
 
 input InputGender {
-    codeGender: String!
-    genderName: String!
+  codeGender: String!
+  genderName: String!
 }
 
 input InputDepartment {
-    name: String!
-    number: Int!
+  name: String!
+  number: Int!
 }
 
 input InputUser {
-    firstName: String!
-    lastName: String!
-    middleName: String
-    login: String!
-    password: String!
-    email: String!
-    registrationDate: String
-    phone: String!
-    roleId: InputRole!
-    genderId: InputGender!
-    departmentId: InputDepartment!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  login: String!
+  password: String!
+  email: String!
+  registrationDate: String
+  phone: String!
+  roleId: InputRole!
+  genderId: InputGender!
+  departmentId: InputDepartment!
 }
-
-input GetUser {
-    login: String!
-    password: String!
-}
-
 
 # Root Types
 
 type Query {
-    getAllApplicationTemplates: [ApplicationTemplate]!
-    getApplicationTemplateById(id: ID!): ApplicationTemplate!
-
-    getLogin(input: InputLogin!): Login!
+  getAllApplicationTemplates: [ApplicationTemplate]!
 }
 
-
 type Mutation {
-    createApplicationTemplate(input: InputApplicationTemplate!): ApplicationTemplate!
-    deleteApplicationTemplate(id: ID!): ApplicationTemplate!
+  createApplicationTemplate(
+    input: InputApplicationTemplate!
+  ): ApplicationTemplate!
+  deleteApplicationTemplate(id: ID!): ApplicationTemplate!
+  login(input: InputLogin!): Login!
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_TEMPLATES } from "../Queries";
+import { GET_ALL_TEMPLATES } from "../queries";
 
 function Home() {
   const { data, loading } = useQuery(GET_ALL_TEMPLATES);

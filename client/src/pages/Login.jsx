@@ -1,19 +1,43 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
+import { useMutation } from "@apollo/client";
+import { LoginMutation } from "../queries";
 
-function Login() {
+function Login(props) {
   const [login, setLogin] = useState({
     login: "",
     password: "",
   });
+  const [error, setError] = useState("");
+
+  const [loginUser, { loading }] = useMutation(LoginMutation, {
+    update(_, result) {
+      props.history.push("/");
+    },
+    onError() {
+      setError("Неправильный логин или пароль!");
+    },
+    variables: {
+      login: login.login,
+      password: login.password,
+    },
+  });
 
   function changeLogin(e) {
     setLogin({ ...login, [e.target.name]: e.target.value });
+    setError("");
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    setTimeout(1000);
+    loginUser();
   }
 
   return (
     <div className="main-content-box login-content-box">
-      <Form className="group-input" onSubmit={() => console.log(login)}>
+      {loading ? <div className="loading"></div> : ""}
+      <Form className="group-input" onSubmit={onSubmit}>
         <h1>ВХОД</h1>
         <Form.Input
           label="Логин"
@@ -31,6 +55,7 @@ function Login() {
           onChange={changeLogin}
           autoComplete="current-password"
         />
+        {error ? <p className="error-message">{error}</p> : ""}
         <Button type="submit">Войти</Button>
       </Form>
     </div>

@@ -13,6 +13,7 @@ $dark-cyan: rgb(0, 138, 138);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: white;
 }
 
 .block-navigation {
@@ -100,5 +101,47 @@ $dark-cyan: rgb(0, 138, 138);
     &:active {
       background-color: rgb(1, 98, 209);
     }
+  }
+}
+
+.error-message {
+  color: rgb(148, 6, 6);
+  width: 79%;
+  height: 36px;
+  border: 1px solid rgba(231, 0, 0, 0.35);
+  background-color: rgba(231, 0, 0, 0.1);
+  text-shadow: 0 0 5px rgba(148, 6, 6, 0.3);
+  text-align: center;
+  padding-top: 5px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.loading {
+  display: inline-flex;
+  width: 400px;
+  height: 450px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+.loading:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid rgb(0, 217, 255);
+  border-color: rgb(0, 217, 255) transparent rgb(0, 217, 255) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
