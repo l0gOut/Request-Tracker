@@ -1,6 +1,6 @@
 # Для запуска приложения вам понадобится nodejs и mysql сервер с название базы данных
 
-## `request_tracker`!
+## `request_tracker`
 
 Первым делом перейдите в каталоги client and server.
 
