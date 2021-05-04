@@ -1,24 +1,26 @@
 import React, { useState, useContext } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import { LoginMutation } from "../queries";
 import Context from "../Context";
 import Cookie from "js-cookie";
 
-function Login(props) {
+function Login() {
   const [login, setLogin] = useState({
     login: "",
     password: "",
   });
+  const [redirect, setRedirect] = useState(false);
+
   const Auth = useContext(Context);
   const [error, setError] = useState("");
 
   const [loginUser, { loading }] = useMutation(LoginMutation, {
     update(_, result) {
-      props.history.push("/");
-      // Cookie.set("user", result.data);
-      // Auth.redirectCabinet.setAuth(true);
+      setRedirect(true);
+      Cookie.set("user", result.data);
+      Auth.redirectCabinet.setAuth(true);
     },
     onError(error) {
       console.log(error);
@@ -43,6 +45,7 @@ function Login(props) {
 
   return (
     <div className="main-content-box login-content-box">
+      {redirect ? <Redirect to="/" /> : ""}
       {loading ? <div className="loading"></div> : ""}
       <Form className="group-input" onSubmit={onSubmit}>
         <h1>ВХОД</h1>

@@ -11,13 +11,14 @@ import "./App.css";
 
 function App() {
   const [auth, setAuth] = useState(false);
+
   useEffect(() => {
     const cookieAuth = Cookie.get("user");
-    console.log(cookieAuth);
     if (cookieAuth) {
-      setAuth(auth);
+      setAuth(true);
     }
   }, [auth]);
+
   return (
     <Context.Provider
       value={{ redirectCabinet: { auth, setAuth }, username: {} }}
