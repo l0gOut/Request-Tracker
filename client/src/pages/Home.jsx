@@ -6,8 +6,6 @@ function Home() {
   const { data, loading } = useQuery(GET_ALL_TEMPLATES);
   const [templates, setTemplates] = useState([]);
 
-  console.log(data);
-
   useEffect(() => {
     if (!loading) {
       setTemplates(data.getAllApplicationTemplates);
@@ -16,15 +14,17 @@ function Home() {
 
   return (
     <div className="main-content-box">
-      <h1>Главная</h1>
-      {templates.map((value) => {
-        return (
-          <div>
-            <h4>{value.name}</h4>
-            <p>{value.description}</p>
-          </div>
-        );
-      })}
+      {/* <h1>Главная</h1> */}
+      <div className="templates-problem-box">
+        {templates.map((value, index) => {
+          return (
+            <div className="template-item" key={index}>
+              <h4>{value.name}</h4>
+              <p>{value.description}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

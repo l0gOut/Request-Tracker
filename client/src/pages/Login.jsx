@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Redirect, Route } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import { LoginMutation } from "../queries";
+import Context from "../Context";
+import Cookie from "js-cookie";
 
 function Login(props) {
   const [login, setLogin] = useState({
     login: "",
     password: "",
   });
+  const Auth = useContext(Context);
   const [error, setError] = useState("");
 
   const [loginUser, { loading }] = useMutation(LoginMutation, {
     update(_, result) {
       props.history.push("/");
+      // Cookie.set("user", result.data);
+      // Auth.redirectCabinet.setAuth(true);
     },
-    onError() {
+    onError(error) {
+      console.log(error);
       setError("Неправильный логин или пароль!");
     },
     variables: {
@@ -40,6 +47,7 @@ function Login(props) {
       <Form className="group-input" onSubmit={onSubmit}>
         <h1>ВХОД</h1>
         <Form.Input
+          required
           label="Логин"
           name="login"
           type="text"
@@ -48,6 +56,7 @@ function Login(props) {
           autoComplete="username"
         />
         <Form.Input
+          required
           label="Пароль"
           name="password"
           type="password"

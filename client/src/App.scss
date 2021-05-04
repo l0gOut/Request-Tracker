@@ -48,6 +48,10 @@ $dark-cyan: rgb(0, 138, 138);
   width: 60%;
   min-width: 600px;
   margin: 0 auto;
+
+  h1 {
+    text-align: center;
+  }
 }
 
 .login-content-box {
@@ -117,6 +121,37 @@ $dark-cyan: rgb(0, 138, 138);
   border-radius: 3px;
 }
 
+.templates-problem-box {
+  border: 1px solid rgba(0, 138, 138, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.template-item {
+  border: 1px solid rgba(0, 138, 138, 0.3);
+  height: 200px;
+  width: 200px;
+  margin: 5px;
+  h4 {
+    text-align: center;
+    border: solid rgba(0, 138, 138, 0.3);
+    border-width: 0 0 1px 0;
+    margin: 0;
+    padding: 5px 0;
+  }
+  p {
+    text-align: center;
+    word-break: normal;
+    overflow-y: auto;
+    padding: 5px;
+    margin: 0;
+  }
+}
+
 .loading {
   display: inline-flex;
   width: 400px;
@@ -144,4 +179,26 @@ $dark-cyan: rgb(0, 138, 138);
   100% {
     transform: rotate(360deg);
   }
+}
+
+.modal-audio-component {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}
+
+.soundtracks {
+  transition: 200ms;
+  height: 0;
+  width: 100%;
+}
+
+.soundtracks-true {
+  height: 200px;
+}
+
+#checkbox-audio {
+  width: 32px;
+  height: 32px;
 }
