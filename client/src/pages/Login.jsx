@@ -19,7 +19,9 @@ function Login() {
   const [loginUser, { loading }] = useMutation(LoginMutation, {
     update(_, result) {
       setRedirect(true);
-      Cookie.set("user", result.data);
+      Cookie.set("user", result.data, {
+        expires: 30,
+      });
       Auth.redirectCabinet.setAuth(true);
     },
     onError(error) {
@@ -39,14 +41,13 @@ function Login() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setTimeout(1000);
     loginUser();
   }
 
   return (
     <div className="main-content-box login-content-box">
       {redirect ? <Redirect to="/" /> : ""}
-      {loading ? <div className="loading"></div> : ""}
+      {loading ? <div className="loading-login"></div> : ""}
       <Form className="group-input" onSubmit={onSubmit}>
         <h1>ВХОД</h1>
         <Form.Input

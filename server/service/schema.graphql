@@ -83,10 +83,20 @@ input InputUser {
   departmentId: InputDepartment!
 }
 
+input ChangeUser {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  middleName: String!
+  email: String!
+  phone: String!
+}
+
 # Root Types
 
 type Query {
   getAllApplicationTemplates: [ApplicationTemplate]!
+  getUserById(id: ID!): User!
 }
 
 type Mutation {
@@ -95,4 +105,5 @@ type Mutation {
   ): ApplicationTemplate!
   deleteApplicationTemplate(id: ID!): ApplicationTemplate!
   login(input: InputLogin!): Login!
+  changeUser(input: ChangeUser!): User!
 }

@@ -11,17 +11,19 @@ import "./App.css";
 
 function App() {
   const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const cookieAuth = Cookie.get("user");
     if (cookieAuth) {
       setAuth(true);
+      setUser(JSON.parse(cookieAuth));
     }
   }, [auth]);
 
   return (
     <Context.Provider
-      value={{ redirectCabinet: { auth, setAuth }, username: {} }}
+      value={{ redirectCabinet: { auth, setAuth }, username: user }}
     >
       <BrowserRouter>
         <NavigationBar />

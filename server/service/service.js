@@ -1,12 +1,12 @@
 const SequelizeDB = require("./models");
 
 // Functions
-let GetAllApplicationTemplates = async () => {
+const GetAllApplicationTemplates = async () => {
   const templates = await SequelizeDB.ApplicationTemplate.findAll();
   return JSON.parse(JSON.stringify(templates));
 };
 
-let CreateApplicationTemplate = async (input) => {
+const CreateApplicationTemplate = async (input) => {
   const template = await SequelizeDB.ApplicationTemplate.create({
     name: input.name,
     description: input.description,
@@ -14,7 +14,7 @@ let CreateApplicationTemplate = async (input) => {
   return template.get();
 };
 
-let Login = async (input) => {
+const Login = async (input) => {
   const login = await SequelizeDB.Login.findAll({
     where: {
       login: input.login,
@@ -24,7 +24,38 @@ let Login = async (input) => {
   return login[0].get();
 };
 
+const GetUserById = async (id) => {
+  const user = await SequelizeDB.User.findAll({
+    where: {
+      id: id,
+    },
+  });
+  return user[0].get();
+};
+
+const ChangeUser = async (userChange) => {
+  const userChangeFinal = await SequelizeDB.User.update(
+    {
+      firstName: userChange.firstName,
+      lastName: userChange.lastName,
+      middleName: userChange.middleName,
+      email: userChange.email,
+      phone: userChange.phone,
+    },
+    {
+      returning: true,
+
+      where: {
+        id: userChange.id,
+      },
+    }
+  );
+  return JSON.parse(JSON.stringify(userChangeFinal));
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
 module.exports.Login = Login;
+module.exports.GetUserById = GetUserById;
+module.exports.ChangeUser = ChangeUser;

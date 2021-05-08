@@ -18,3 +18,45 @@ export const LoginMutation = gql`
     }
   }
 `;
+
+export const GetUserQuery = gql`
+  query($id: ID!) {
+    getUserById(id: $id) {
+      id
+      firstName
+      lastName
+      middleName
+      email
+      phone
+    }
+  }
+`;
+
+export const ChangeUser = gql`
+  mutation(
+    $id: ID!
+    $firstName: String!
+    $lastName: String!
+    $middleName: String!
+    $email: String!
+    $phone: String!
+  ) {
+    changeUser(
+      input: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+        middleName: $middleName
+        email: $email
+        phone: $phone
+      }
+    ) {
+      id
+      firstName
+      lastName
+      middleName
+      email
+      phone
+    }
+  }
+`;

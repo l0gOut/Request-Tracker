@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "semantic-ui-react";
-import Audio from "./Audio";
+import ReactAudioPlayer from "react-audio-player";
+import KingAndClown from "../audio/Король и Шут - Кукла Колдуна.mp3";
+import Nyanpansu from "../audio/Nyanpansu.mp3";
 
 function ModalWindowAudio() {
   const [checkbox, setCheckbox] = useState(false);
@@ -29,7 +31,21 @@ function ModalWindowAudio() {
         onClick={handleCheckbox}
       />
       <div {...styles}>
-        <Audio />
+        <ReactAudioPlayer
+          className="audio-component"
+          label="Кукла колдуна"
+          src={KingAndClown}
+          volume={0.1}
+          controls
+          loop={true}
+        ></ReactAudioPlayer>
+        <ReactAudioPlayer
+          className="audio-component"
+          src={Nyanpansu}
+          volume={0.1}
+          controls
+          loop={true}
+        ></ReactAudioPlayer>
       </div>
     </div>
   );

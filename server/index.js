@@ -27,6 +27,12 @@ const root = {
   login: (input) => {
     return Service.Login(input.input);
   },
+  getUserById: (input) => {
+    return Service.GetUserById(input.id);
+  },
+  changeUser: (input) => {
+    return Service.ChangeUser(input.input);
+  },
 };
 
 // GUI GraphQL
