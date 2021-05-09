@@ -17,7 +17,6 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: white;
-  z-index: 5;
 }
 
 .navigation-bar .item {
@@ -53,6 +52,7 @@
   height: 80px;
   width: 100%;
   top: 0;
+  z-index: 10;
 }
 
 .main-content-box {
@@ -152,20 +152,148 @@
 }
 
 .templates-problem-box {
-  border: 1px solid rgba(0, 138, 138, 0.3);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  height: 92%;
+  display: none;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  height: 100%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  overflow-y: auto;
+}
+
+.templates-problem-box .unique-claim {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.templates-problem-box .unique-claim .text-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.templates-problem-box .unique-claim h1 {
+  font-size: 40px;
+}
+
+.templates-problem-box .unique-claim input,
+.templates-problem-box .unique-claim textarea,
+.templates-problem-box .unique-claim button {
+  width: 500px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+.templates-problem-box .unique-claim label {
+  padding-left: 5px;
+  font-size: 22px;
+}
+
+.templates-problem-box .unique-claim input {
+  height: 40px;
+}
+
+.templates-problem-box .unique-claim input,
+.templates-problem-box .unique-claim textarea {
+  margin-top: 0;
+  padding: 2px 7px;
+  border: 1px solid gray;
+  background-color: rgba(124, 124, 124, 0.05);
+  border-radius: 4px;
+}
+
+.templates-problem-box .unique-claim button {
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  text-shadow: 0 0 1px white;
+  background-color: #0178ff;
+}
+
+.templates-problem-box .unique-claim button:active {
+  background-color: #0162d1;
+}
+
+.template-block-active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: auto;
+}
+
+.home-content-box {
+  border: 1px solid #008a8a;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.home-selector-block {
+  height: 64px;
+  background-color: #008a8a;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+
+.home-selector-block .item {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  text-shadow: 0 0 2px white;
+  font-size: 28px;
+  white-space: nowrap;
+}
+
+.home-selector-block .item:hover {
+  background-color: #00a5a5;
+}
+
+.home-selector-block .active {
+  background-color: white;
+  color: black;
+  text-shadow: 0 0 1px black;
+}
+
+.home-selector-block .active:hover {
+  background-color: white;
 }
 
 .template-item {
@@ -294,16 +422,7 @@
 
 .selector-block {
   width: 25%;
-  height: 100%;
   background-color: #008a8a;
-  float: left;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .selector-block .item {
@@ -356,17 +475,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  z-index: -1;
 }
 
 .info-block {
   width: 75%;
   height: 100%;
-  float: right;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -427,6 +540,12 @@
 
 .info-block .active button:active {
   background-color: #0162d1;
+}
+
+.info-block .active .disabled .button {
+  background-color: black;
+  color: #707070;
+  text-shadow: 0 0 1px #707070;
 }
 
 .info-block-active {

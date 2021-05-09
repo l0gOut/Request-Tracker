@@ -17,7 +17,6 @@ $back-input-color: rgba(124, 124, 124, 0.05);
   flex-direction: row;
   justify-content: space-between;
   background-color: white;
-  z-index: 5;
 
   .item {
     text-decoration: none;
@@ -45,6 +44,7 @@ $back-input-color: rgba(124, 124, 124, 0.05);
   height: 80px;
   width: 100%;
   top: 0;
+  z-index: 10;
 }
 
 .main-content-box {
@@ -126,13 +126,113 @@ $back-input-color: rgba(124, 124, 124, 0.05);
 }
 
 .templates-problem-box {
-  border: 1px solid rgba(0, 138, 138, 0.3);
-  display: flex;
+  height: 92%;
+  display: none;
   flex-wrap: wrap;
-  height: 100%;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
+
+  .unique-claim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .text-area {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    input,
+    textarea,
+    button {
+      width: 500px;
+      box-sizing: border-box;
+      outline: none;
+      margin: 10px 0;
+      font-size: 24px;
+    }
+
+    label {
+      padding-left: 5px;
+      font-size: 22px;
+    }
+
+    input {
+      height: 40px;
+    }
+
+    input,
+    textarea {
+      margin-top: 0;
+      padding: 2px 7px;
+      border: 1px solid gray;
+      background-color: $back-input-color;
+      border-radius: 4px;
+    }
+
+    button {
+      height: 50px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      text-shadow: 0 0 1px white;
+      background-color: $light-blue;
+
+      &:active {
+        background-color: rgb(1, 98, 209);
+      }
+    }
+  }
+}
+
+.template-block-active {
+  display: flex;
+  overflow: auto;
+}
+
+.home-content-box {
+  border: 1px solid $dark-cyan;
+  box-sizing: border-box;
+}
+
+.home-selector-block {
+  height: 64px;
+  background-color: $dark-cyan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  .item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 0 0 2px white;
+    font-size: 28px;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $hover-dark-cyan;
+    }
+  }
+
+  .active {
+    background-color: white;
+    color: black;
+    text-shadow: 0 0 1px black;
+
+    &:hover {
+      background-color: white;
+    }
+  }
 }
 
 .template-item {
@@ -140,6 +240,7 @@ $back-input-color: rgba(124, 124, 124, 0.05);
   height: 200px;
   width: 200px;
   margin: 5px;
+
   h4 {
     text-align: center;
     border: solid rgba(0, 138, 138, 0.3);
@@ -147,6 +248,7 @@ $back-input-color: rgba(124, 124, 124, 0.05);
     margin: 0;
     padding: 5px 0;
   }
+
   p {
     text-align: center;
     word-break: normal;
@@ -231,11 +333,7 @@ $back-input-color: rgba(124, 124, 124, 0.05);
 
 .selector-block {
   width: 25%;
-  height: 100%;
   background-color: $dark-cyan;
-  float: left;
-  display: flex;
-  flex-direction: column;
 
   .item {
     border: 0 solid transparent;
@@ -270,6 +368,7 @@ $back-input-color: rgba(124, 124, 124, 0.05);
     background-color: white;
     text-shadow: 0 0 1px black;
     border: 1px solid transparent;
+
     &:hover {
       background-color: white;
     }
@@ -279,19 +378,17 @@ $back-input-color: rgba(124, 124, 124, 0.05);
 .main-cabinet-box {
   margin-top: 3px;
   display: flex;
-  flex-direction: row;
-  z-index: -1;
 }
 
 .info-block {
   width: 75%;
   height: 100%;
-  float: right;
   display: flex;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   border: 1px solid $dark-cyan;
+
   .container {
     display: none;
   }
@@ -330,9 +427,16 @@ $back-input-color: rgba(124, 124, 124, 0.05);
       color: white;
       text-shadow: 0 0 1px white;
       border: none;
+
       &:active {
         background-color: rgb(1, 98, 209);
       }
+    }
+
+    .disabled .button {
+      background-color: black;
+      color: $light-gray;
+      text-shadow: 0 0 1px $light-gray;
     }
   }
 }

@@ -98,7 +98,7 @@ function Cabinet() {
             <div className="loading"></div>
           ) : (
             <Form onSubmit={onSubmit}>
-              <Header as="h1"></Header>
+              <Header as="h1">Изменение Данных</Header>
               <Form.Input
                 label="Имя"
                 value={userInfo.firstName}
@@ -137,7 +137,7 @@ function Cabinet() {
                 required
               />
               <Form.Button type="submit" disabled={disabledButton}>
-                Сохранить изменения
+                {disabledButton ? "Внесите изменения!" : "Сохранить изменения"}
               </Form.Button>
             </Form>
           )}
