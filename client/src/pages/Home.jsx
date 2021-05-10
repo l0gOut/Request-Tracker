@@ -44,7 +44,14 @@ function Home() {
           return (
             <div className="template-item" key={index}>
               <h4>{value.name}</h4>
-              <p>{value.description}</p>
+              <div className="template-description">
+                <p>{value.description}</p>
+              </div>
+              <div className="template-button">
+                <button value={value} onClick={() => console.log(value)}>
+                  Использовать
+                </button>
+              </div>
             </div>
           );
         })}

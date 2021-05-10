@@ -5,6 +5,8 @@ $dark-cyan: rgb(0, 138, 138);
 $hover-dark-cyan: rgb(0, 165, 165);
 $light-blue: rgb(1, 120, 255);
 $back-input-color: rgba(124, 124, 124, 0.05);
+$very-dark-cyan-template: rgba(0, 138, 138, 0.3);
+$button-active: rgb(1, 98, 209);
 
 .navigation-bar {
   height: 100%;
@@ -101,13 +103,14 @@ $back-input-color: rgba(124, 124, 124, 0.05);
     outline: none;
     font-size: 18px;
     color: white;
-
     background-color: $light-blue;
     border-radius: 4px;
     border: none;
     height: 40px;
+    transition: 200ms;
+
     &:active {
-      background-color: rgb(1, 98, 209);
+      background-color: $button-active;
     }
   }
 }
@@ -182,9 +185,10 @@ $back-input-color: rgba(124, 124, 124, 0.05);
       color: white;
       text-shadow: 0 0 1px white;
       background-color: $light-blue;
+      transition: 200ms;
 
       &:active {
-        background-color: rgb(1, 98, 209);
+        background-color: $button-active;
       }
     }
   }
@@ -236,25 +240,56 @@ $back-input-color: rgba(124, 124, 124, 0.05);
 }
 
 .template-item {
-  border: 1px solid rgba(0, 138, 138, 0.3);
+  border: 1px solid $very-dark-cyan-template;
   height: 200px;
   width: 200px;
   margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   h4 {
     text-align: center;
-    border: solid rgba(0, 138, 138, 0.3);
+    border: solid $very-dark-cyan-template;
     border-width: 0 0 1px 0;
     margin: 0;
     padding: 5px 0;
   }
 
-  p {
-    text-align: center;
-    word-break: normal;
-    overflow-y: auto;
-    padding: 5px;
-    margin: 0;
+  .template-description {
+    height: 60%;
+    width: 100%;
+
+    p {
+      text-align: center;
+      word-break: normal;
+      overflow-y: auto;
+      padding: 0 5px;
+      margin: 0;
+    }
+  }
+
+  .template-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid $very-dark-cyan-template;
+    border-width: 1px 0 0 0;
+
+    button {
+      cursor: pointer;
+      background-color: $light-blue;
+      border: none;
+      color: white;
+      height: 32px;
+      width: 100%;
+      text-shadow: 0 0 1px white;
+      transition: 200ms;
+
+      &:active {
+        background-color: $button-active;
+      }
+    }
   }
 }
 
@@ -427,9 +462,10 @@ $back-input-color: rgba(124, 124, 124, 0.05);
       color: white;
       text-shadow: 0 0 1px white;
       border: none;
+      transition: 200ms;
 
       &:active {
-        background-color: rgb(1, 98, 209);
+        background-color: $button-active;
       }
     }
 
