@@ -7,6 +7,12 @@ $light-blue: rgb(1, 120, 255);
 $back-input-color: rgba(124, 124, 124, 0.05);
 $very-dark-cyan-template: rgba(0, 138, 138, 0.3);
 $button-active: rgb(1, 98, 209);
+$button-selected-shadow: rgba(1, 120, 255, 0.3);
+$input-selected-shadow: rgba(128, 128, 128, 0.3);
+
+button {
+  cursor: pointer;
+}
 
 .navigation-bar {
   height: 100%;
@@ -64,7 +70,7 @@ $button-active: rgb(1, 98, 209);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5rem auto;
+  margin: 2.5rem auto;
 }
 
 .group-input {
@@ -146,10 +152,6 @@ $button-active: rgb(1, 98, 209);
       flex-direction: column;
     }
 
-    h1 {
-      font-size: 40px;
-    }
-
     input,
     textarea,
     button {
@@ -186,6 +188,10 @@ $button-active: rgb(1, 98, 209);
       text-shadow: 0 0 1px white;
       background-color: $light-blue;
       transition: 200ms;
+
+      &:focus {
+        box-shadow: 0 0 0 4px $button-selected-shadow;
+      }
 
       &:active {
         background-color: $button-active;
@@ -464,6 +470,10 @@ $button-active: rgb(1, 98, 209);
       border: none;
       transition: 200ms;
 
+      &:focus {
+        box-shadow: 0 0 0 4px $button-selected-shadow;
+      }
+
       &:active {
         background-color: $button-active;
       }
@@ -479,4 +489,116 @@ $button-active: rgb(1, 98, 209);
 
 .info-block-active {
   border-top: 0;
+}
+
+.template-form {
+  border: 1px solid $very-dark-cyan-template;
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  width: 45%;
+  justify-content: space-between;
+  overflow-y: auto;
+
+  h1 {
+    margin: 0;
+  }
+
+  .template-cross {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    button {
+      height: 40px;
+      width: 40px;
+      font-size: 32px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: none;
+      color: $light-blue;
+
+      &:active {
+        color: $button-active;
+      }
+    }
+  }
+
+  .input-template {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .disabled {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  input,
+  textarea {
+    width: 95%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  textarea {
+    font-size: 18px;
+    padding: 2px 7px;
+    border: 1px solid gray;
+    background-color: rgba(124, 124, 124, 0.05);
+    border-radius: 4px;
+    outline: none;
+
+    &:focus {
+      box-shadow: 0 0 0 2px $input-selected-shadow;
+    }
+  }
+
+  input {
+    font-size: 30px;
+    height: 40px;
+    text-align: center;
+    padding: 2px 7px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    text-shadow: 0 0 2px white;
+  }
+
+  .template-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+
+    button {
+      outline: none;
+      width: 95%;
+      height: 40px;
+      border: 1px solid $light-blue;
+      border-radius: 10px;
+      background-color: $light-blue;
+      font-size: 24px;
+      color: white;
+      text-shadow: 0 0 1px white;
+      transition: 200ms;
+
+      &:focus {
+        box-shadow: 0 0 0 4px $button-selected-shadow;
+      }
+
+      &:active {
+        background-color: $button-active;
+      }
+    }
+  }
 }

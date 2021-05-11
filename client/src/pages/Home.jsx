@@ -6,6 +6,11 @@ import { Menu, Form } from "semantic-ui-react";
 function Home() {
   const [templates, setTemplates] = useState([]);
   const [activeItem, setActiveItem] = useState(1);
+  const [templateForm, setTemplateForm] = useState(false);
+  const [templateData, setTemplateData] = useState({
+    name: "",
+    description: "",
+  });
   const [uniqueClaim, setUniqueClaim] = useState({
     name: "",
     description: "",
@@ -21,6 +26,15 @@ function Home() {
 
   function onChangeUniqueClaim(e) {
     setUniqueClaim({ ...uniqueClaim, [e.target.name]: e.target.value });
+  }
+
+  function templateFormCreate(value) {
+    setTemplateData(value);
+    setTemplateForm(true);
+  }
+
+  function onChangeTemplateData(e) {
+    setTemplateData({ ...templateData, [e.target.name]: e.target.value });
   }
 
   return (
@@ -40,21 +54,51 @@ function Home() {
             : "templates-problem-box"
         }
       >
-        {templates.map((value, index) => {
-          return (
-            <div className="template-item" key={index}>
-              <h4>{value.name}</h4>
-              <div className="template-description">
-                <p>{value.description}</p>
+        {templateForm ? (
+          <Form className="template-form">
+            <Form.Button
+              className="template-cross"
+              onClick={() => setTemplateForm(false)}
+            >
+              &times;
+            </Form.Button>
+            <Menu.Header as="h1">Создание заявки по шаблону</Menu.Header>
+            <Form.Input
+              className="input-template"
+              disabled
+              label="Имя"
+              name="name"
+              value={templateData.name}
+              onChange={onChangeTemplateData}
+            />
+            <Form.TextArea
+              className="input-template"
+              label="Описание проблемы"
+              name="description"
+              value={templateData.description}
+              onChange={onChangeTemplateData}
+            />
+            <Form.Button type="submit" className="template-submit">
+              Оставить заявку
+            </Form.Button>
+          </Form>
+        ) : (
+          templates.map((value, index) => {
+            return (
+              <div className="template-item" key={index}>
+                <h4>{value.name}</h4>
+                <div className="template-description">
+                  <p>{value.description}</p>
+                </div>
+                <div className="template-button">
+                  <button onClick={() => templateFormCreate(value)}>
+                    Использовать
+                  </button>
+                </div>
               </div>
-              <div className="template-button">
-                <button value={value} onClick={() => console.log(value)}>
-                  Использовать
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
       <div
         className={

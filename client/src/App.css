@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+button {
+  cursor: pointer;
+}
+
 .navigation-bar {
   height: 100%;
   width: 60%;
@@ -76,7 +80,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 5rem auto;
+  margin: 2.5rem auto;
 }
 
 .group-input {
@@ -192,10 +196,6 @@
           flex-direction: column;
 }
 
-.templates-problem-box .unique-claim h1 {
-  font-size: 40px;
-}
-
 .templates-problem-box .unique-claim input,
 .templates-problem-box .unique-claim textarea,
 .templates-problem-box .unique-claim button {
@@ -234,6 +234,11 @@
   background-color: #0178ff;
   -webkit-transition: 200ms;
   transition: 200ms;
+}
+
+.templates-problem-box .unique-claim button:focus {
+  -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+          box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
 }
 
 .templates-problem-box .unique-claim button:active {
@@ -589,6 +594,11 @@
   transition: 200ms;
 }
 
+.info-block .active button:focus {
+  -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+          box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+}
+
 .info-block .active button:active {
   background-color: #0162d1;
 }
@@ -601,5 +611,154 @@
 
 .info-block-active {
   border-top: 0;
+}
+
+.template-form {
+  border: 1px solid rgba(0, 138, 138, 0.3);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 60%;
+  width: 45%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  overflow-y: auto;
+}
+
+.template-form h1 {
+  margin: 0;
+}
+
+.template-form .template-cross {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.template-form .template-cross button {
+  height: 40px;
+  width: 40px;
+  font-size: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: #0178ff;
+}
+
+.template-form .template-cross button:active {
+  color: #0162d1;
+}
+
+.template-form .input-template {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.template-form .input-template .disabled {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.template-form input,
+.template-form textarea {
+  width: 95%;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.template-form label {
+  font-size: 24px;
+}
+
+.template-form textarea {
+  font-size: 18px;
+  padding: 2px 7px;
+  border: 1px solid gray;
+  background-color: rgba(124, 124, 124, 0.05);
+  border-radius: 4px;
+  outline: none;
+}
+
+.template-form textarea:focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
+}
+
+.template-form input {
+  font-size: 30px;
+  height: 40px;
+  text-align: center;
+  padding: 2px 7px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  text-shadow: 0 0 2px white;
+}
+
+.template-form .template-submit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 60px;
+}
+
+.template-form .template-submit button {
+  outline: none;
+  width: 95%;
+  height: 40px;
+  border: 1px solid #0178ff;
+  border-radius: 10px;
+  background-color: #0178ff;
+  font-size: 24px;
+  color: white;
+  text-shadow: 0 0 1px white;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.template-form .template-submit button:focus {
+  -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+          box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+}
+
+.template-form .template-submit button:active {
+  background-color: #0162d1;
 }
 /*# sourceMappingURL=App.css.map */
