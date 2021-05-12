@@ -33,7 +33,6 @@ const GetUserById = async (id) => {
       all: true,
     },
   });
-  console.log(JSON.parse(JSON.stringify(user)));
   return JSON.parse(JSON.stringify(user));
 };
 

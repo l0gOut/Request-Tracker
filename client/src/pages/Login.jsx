@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
-import { LoginMutation } from "../queries";
+import { LoginMutation } from "../Queries";
 import Context from "../Context";
 import Cookie from "js-cookie";
 
@@ -47,8 +47,8 @@ function Login() {
   return (
     <div className="main-content-box login-content-box">
       {redirect ? <Redirect to="/" /> : ""}
-      {loading ? <div className="loading-login"></div> : ""}
       <Form className="group-input" onSubmit={onSubmit}>
+        {loading ? <div className="loading-login"></div> : ""}
         <h1>ВХОД</h1>
         <Form.Input
           required

@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import Context from "../Context";
 import { useMutation } from "@apollo/client";
-import { GetUserQuery } from "../queries";
+import { GetUserQuery, ChangeUser } from "../Queries";
 import { Menu, Container, Header, Form } from "semantic-ui-react";
-import { ChangeUser } from "../queries";
 import lodash from "lodash";
 import Cookie from "js-cookie";
 
@@ -80,6 +79,7 @@ function Cabinet() {
 
   useEffect(() => {
     userQuery();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -114,14 +114,13 @@ function Cabinet() {
           as={Container}
           active={selectedBlock === 1}
         >
-          {loadingMutation ? <div className="loading"></div> : ""}
-          {loading ? (
+          {loading || loadingMutation ? (
             <div className="loading"></div>
           ) : (
             <Form onSubmit={onSubmit}>
               <Header as="h1">Изменение Данных</Header>
-              <Header as="h6">{userInfo.gender.genderName}</Header>
-              <Header as="h6">{userInfo.department.name}</Header>
+              <Header as="h4">{userInfo.gender.genderName}</Header>
+              <Header as="h4">{userInfo.department.name}</Header>
               <p>{userInfo.department.number}</p>
               <Form.Input
                 label="Имя"

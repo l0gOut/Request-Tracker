@@ -222,12 +222,12 @@ button {
 }
 
 .templates-problem-box .unique-claim label {
-  padding-left: 5px;
   font-size: 22px;
 }
 
 .templates-problem-box .unique-claim input {
   height: 40px;
+  text-align: center;
 }
 
 .templates-problem-box .unique-claim input,
@@ -237,8 +237,10 @@ button {
   border: 1px solid gray;
   background-color: rgba(124, 124, 124, 0.05);
   border-radius: 4px;
-  -webkit-transition: 200ms;
-  transition: 200ms;
+  -webkit-transition: -webkit-box-shadow 200ms;
+  transition: -webkit-box-shadow 200ms;
+  transition: box-shadow 200ms;
+  transition: box-shadow 200ms, -webkit-box-shadow 200ms;
 }
 
 .templates-problem-box .unique-claim input:focus, .templates-problem-box .unique-claim input:hover,
@@ -266,6 +268,21 @@ button {
 
 .templates-problem-box .unique-claim button:active {
   background-color: #0162d1;
+}
+
+.templates-problem-box .unique-claim .unique-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .template-block-active {
@@ -451,8 +468,8 @@ button {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 400px;
-  height: 450px;
+  width: 99%;
+  height: 99%;
   position: absolute;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -745,8 +762,10 @@ button {
   background-color: rgba(124, 124, 124, 0.05);
   border-radius: 4px;
   outline: none;
-  -webkit-transition: 200ms;
-  transition: 200ms;
+  -webkit-transition: -webkit-box-shadow 200ms;
+  transition: -webkit-box-shadow 200ms;
+  transition: box-shadow 200ms;
+  transition: box-shadow 200ms, -webkit-box-shadow 200ms;
 }
 
 .template-form textarea:focus, .template-form textarea:hover {

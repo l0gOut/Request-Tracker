@@ -175,12 +175,12 @@ button {
     }
 
     label {
-      padding-left: 5px;
       font-size: 22px;
     }
 
     input {
       height: 40px;
+      text-align: center;
     }
 
     input,
@@ -190,7 +190,7 @@ button {
       border: 1px solid gray;
       background-color: $back-input-color;
       border-radius: 4px;
-      transition: 200ms;
+      transition: box-shadow 200ms;
 
       &:focus,
       &:hover {
@@ -215,6 +215,13 @@ button {
       &:active {
         background-color: $button-active;
       }
+    }
+
+    .unique-input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-content: center;
     }
   }
 }
@@ -363,8 +370,8 @@ button {
 
 .loading-login {
   display: inline-flex;
-  width: 400px;
-  height: 450px;
+  width: 99%;
+  height: 99%;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -589,7 +596,7 @@ button {
     background-color: rgba(124, 124, 124, 0.05);
     border-radius: 4px;
     outline: none;
-    transition: 200ms;
+    transition: box-shadow 200ms;
 
     &:focus,
     &:hover {
