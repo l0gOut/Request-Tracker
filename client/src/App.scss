@@ -102,6 +102,12 @@ button {
     border-radius: 4px;
     box-sizing: border-box;
     background-color: $back-input-color;
+    transition: 200ms;
+
+    &:focus,
+    &:hover {
+      box-shadow: 0 0 0 3px $input-selected-shadow;
+    }
   }
   button {
     margin: 1rem 0;
@@ -114,6 +120,11 @@ button {
     border: none;
     height: 40px;
     transition: 200ms;
+
+    &:focus,
+    &:hover {
+      box-shadow: 0 0 0 4px $button-selected-shadow;
+    }
 
     &:active {
       background-color: $button-active;
@@ -139,6 +150,7 @@ button {
   display: none;
   flex-wrap: wrap;
   justify-content: center;
+  align-content: center;
   align-items: center;
 
   .unique-claim {
@@ -178,6 +190,12 @@ button {
       border: 1px solid gray;
       background-color: $back-input-color;
       border-radius: 4px;
+      transition: 200ms;
+
+      &:focus,
+      &:hover {
+        box-shadow: 0 0 0 3px $input-selected-shadow;
+      }
     }
 
     button {
@@ -189,7 +207,8 @@ button {
       background-color: $light-blue;
       transition: 200ms;
 
-      &:focus {
+      &:focus,
+      &:hover {
         box-shadow: 0 0 0 4px $button-selected-shadow;
       }
 
@@ -226,8 +245,8 @@ button {
     align-items: center;
     color: white;
     text-shadow: 0 0 2px white;
-    font-size: 28px;
-    white-space: nowrap;
+    font-size: 18px;
+    cursor: pointer;
 
     &:hover {
       background-color: $hover-dark-cyan;
@@ -235,6 +254,7 @@ button {
   }
 
   .active {
+    cursor: initial;
     background-color: white;
     color: black;
     text-shadow: 0 0 1px black;
@@ -409,6 +429,7 @@ button {
     background-color: white;
     text-shadow: 0 0 1px black;
     border: 1px solid transparent;
+    cursor: initial;
 
     &:hover {
       background-color: white;
@@ -458,6 +479,12 @@ button {
       margin-top: 2px;
       border: 1px solid gray;
       background-color: $back-input-color;
+      transition: 200ms;
+
+      &:focus,
+      &:hover {
+        box-shadow: 0 0 0 3px $input-selected-shadow;
+      }
     }
 
     button {
@@ -470,7 +497,8 @@ button {
       border: none;
       transition: 200ms;
 
-      &:focus {
+      &:focus,
+      &:hover {
         box-shadow: 0 0 0 4px $button-selected-shadow;
       }
 
@@ -480,9 +508,14 @@ button {
     }
 
     .disabled .button {
+      cursor: initial;
       background-color: black;
       color: $light-gray;
       text-shadow: 0 0 1px $light-gray;
+
+      &:hover {
+        box-shadow: none;
+      }
     }
   }
 }
@@ -556,8 +589,10 @@ button {
     background-color: rgba(124, 124, 124, 0.05);
     border-radius: 4px;
     outline: none;
+    transition: 200ms;
 
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: 0 0 0 2px $input-selected-shadow;
     }
   }
@@ -592,7 +627,8 @@ button {
       text-shadow: 0 0 1px white;
       transition: 200ms;
 
-      &:focus {
+      &:focus,
+      &:hover {
         box-shadow: 0 0 0 4px $button-selected-shadow;
       }
 

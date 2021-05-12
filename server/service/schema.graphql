@@ -31,15 +31,34 @@ type User {
   email: String
   registrationDate: String
   phone: String
-  roleId: Role
-  genderId: Gender
-  departmentId: Department
+  role: Role
+  gender: Gender
+  department: Department
 }
 
 type Login {
   id: ID
   login: String
   password: String
+}
+
+type Application {
+  id: ID
+  name: String
+  description: String
+  userId: Int
+}
+
+type Status {
+  id: ID
+  status: String
+}
+
+type ApplicationStatus {
+  id: ID
+  date: String
+  application: Application
+  status: Status
 }
 
 # Input Models
@@ -78,9 +97,9 @@ input InputUser {
   email: String!
   registrationDate: String
   phone: String!
-  roleId: InputRole!
-  genderId: InputGender!
-  departmentId: InputDepartment!
+  role: InputRole!
+  gender: InputGender!
+  department: InputDepartment!
 }
 
 input ChangeUser {
@@ -92,18 +111,38 @@ input ChangeUser {
   phone: String!
 }
 
+input InputApplication {
+  name: String!
+  description: String!
+  userId: Int!
+}
+
+input InputApplicationStatus {
+  date: String!
+  applicationId: Int!
+  statusId: Int
+}
+
 # Root Types
 
 type Query {
   getAllApplicationTemplates: [ApplicationTemplate]!
-  getUserById(id: ID!): User!
 }
 
 type Mutation {
+  getUserById(id: ID!): User!
+
   createApplicationTemplate(
     input: InputApplicationTemplate!
   ): ApplicationTemplate!
+
   deleteApplicationTemplate(id: ID!): ApplicationTemplate!
+
   login(input: InputLogin!): Login!
+
   changeUser(input: ChangeUser!): User!
+
+  createApplication(input: InputApplication!): Application!
+
+  createApplicationStatus(input: InputApplicationStatus!): ApplicationStatus!
 }

@@ -33,6 +33,12 @@ const root = {
   changeUser: (input) => {
     return Service.ChangeUser(input.input);
   },
+  createApplication: (input) => {
+    return Service.CreateApplication(input.input);
+  },
+  createApplicationStatus: (input) => {
+    return Service.CreateApplicationStatus(input.input);
+  },
 };
 
 // GUI GraphQL

@@ -123,6 +123,13 @@ button {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background-color: rgba(124, 124, 124, 0.05);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.group-input input[value]:focus, .group-input input[value]:hover {
+  -webkit-box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
 }
 
 .group-input button {
@@ -137,6 +144,11 @@ button {
   height: 40px;
   -webkit-transition: 200ms;
   transition: 200ms;
+}
+
+.group-input button:focus, .group-input button:hover {
+  -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
+          box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
 }
 
 .group-input button:active {
@@ -165,6 +177,8 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -223,6 +237,15 @@ button {
   border: 1px solid gray;
   background-color: rgba(124, 124, 124, 0.05);
   border-radius: 4px;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.templates-problem-box .unique-claim input:focus, .templates-problem-box .unique-claim input:hover,
+.templates-problem-box .unique-claim textarea:focus,
+.templates-problem-box .unique-claim textarea:hover {
+  -webkit-box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
 }
 
 .templates-problem-box .unique-claim button {
@@ -236,7 +259,7 @@ button {
   transition: 200ms;
 }
 
-.templates-problem-box .unique-claim button:focus {
+.templates-problem-box .unique-claim button:focus, .templates-problem-box .unique-claim button:hover {
   -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
           box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
 }
@@ -287,8 +310,8 @@ button {
           align-items: center;
   color: white;
   text-shadow: 0 0 2px white;
-  font-size: 28px;
-  white-space: nowrap;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .home-selector-block .item:hover {
@@ -296,6 +319,7 @@ button {
 }
 
 .home-selector-block .active {
+  cursor: initial;
   background-color: white;
   color: black;
   text-shadow: 0 0 1px black;
@@ -518,6 +542,7 @@ button {
   background-color: white;
   text-shadow: 0 0 1px black;
   border: 1px solid transparent;
+  cursor: initial;
 }
 
 .selector-block .active:hover {
@@ -580,6 +605,13 @@ button {
   margin-top: 2px;
   border: 1px solid gray;
   background-color: rgba(124, 124, 124, 0.05);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.info-block .active input:focus, .info-block .active input:hover {
+  -webkit-box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
 }
 
 .info-block .active button {
@@ -594,7 +626,7 @@ button {
   transition: 200ms;
 }
 
-.info-block .active button:focus {
+.info-block .active button:focus, .info-block .active button:hover {
   -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
           box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
 }
@@ -604,9 +636,15 @@ button {
 }
 
 .info-block .active .disabled .button {
+  cursor: initial;
   background-color: black;
   color: #707070;
   text-shadow: 0 0 1px #707070;
+}
+
+.info-block .active .disabled .button:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .info-block-active {
@@ -707,9 +745,11 @@ button {
   background-color: rgba(124, 124, 124, 0.05);
   border-radius: 4px;
   outline: none;
+  -webkit-transition: 200ms;
+  transition: 200ms;
 }
 
-.template-form textarea:focus {
+.template-form textarea:focus, .template-form textarea:hover {
   -webkit-box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
           box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
 }
@@ -753,7 +793,7 @@ button {
   transition: 200ms;
 }
 
-.template-form .template-submit button:focus {
+.template-form .template-submit button:focus, .template-form .template-submit button:hover {
   -webkit-box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
           box-shadow: 0 0 0 4px rgba(1, 120, 255, 0.3);
 }

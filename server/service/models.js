@@ -1,214 +1,250 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 
 // Connection to database
-const SequelizeDB = new Sequelize('request_tracker', 'root', '1234', {
-    host: 'localhost',
-    dialect: 'mysql',
+const SequelizeDB = new Sequelize("request_tracker", "root", "1234", {
+  host: "localhost",
+  dialect: "mysql",
 });
 
 // Models
-const Gender = SequelizeDB.define('gender', {
+const Gender = SequelizeDB.define(
+  "gender",
+  {
     codeGender: {
-        type: DataTypes.STRING(10),
-        allowNull: false,
-        
+      type: DataTypes.STRING(10),
+      allowNull: false,
     },
     genderName: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'gender',
-});
+    tableName: "gender",
+  }
+);
 
-const Role = SequelizeDB.define('role', {
+const Role = SequelizeDB.define(
+  "role",
+  {
     roleName: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'role',
-});
+    tableName: "role",
+  }
+);
 
-const Department = SequelizeDB.define('department', {
+const Department = SequelizeDB.define(
+  "department",
+  {
     name: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
+      type: DataTypes.STRING(100),
+      allowNull: false,
     },
     number: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'department',
-});
+    tableName: "department",
+  }
+);
 
-const Login = SequelizeDB.define('login', {
+const Login = SequelizeDB.define(
+  "login",
+  {
     login: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     password: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
     // Foreign key User
     userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'login'
-})
+    tableName: "login",
+  }
+);
 
-const User = SequelizeDB.define('user', {
+const User = SequelizeDB.define(
+  "user",
+  {
     firstName: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     lastName: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     middleName: {
-        type: DataTypes.STRING(50)
+      type: DataTypes.STRING(50),
     },
     email: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
     registrationDate: {
-        type: DataTypes.DATE,
-        defaultValue: new Date(),
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
     },
     phone: {
-        type: DataTypes.STRING(20),
-        allowNull: false
+      type: DataTypes.STRING(20),
+      allowNull: false,
     },
     // Foreign key Role
     roleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     // Foreign key Gender
     genderId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     // Foreign key Department
     departmentId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'user',
-});
+    tableName: "user",
+  }
+);
 
-const ApplicationTemplate = SequelizeDB.define('applicationTemplate', {
+const ApplicationTemplate = SequelizeDB.define(
+  "applicationTemplate",
+  {
     name: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'application_template'
-});
+    tableName: "application_template",
+  }
+);
 
-const Status = SequelizeDB.define('status', {
+const Status = SequelizeDB.define(
+  "status",
+  {
     status: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'status'
-});
+    tableName: "status",
+  }
+);
 
-const Application = SequelizeDB.define('application', {
+const Application = SequelizeDB.define(
+  "application",
+  {
     name: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     // Foreign key User
     userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'application'
-});
+    tableName: "application",
+  }
+);
 
-const ApplicationStatus = SequelizeDB.define('applicationStatus', {
+const ApplicationStatus = SequelizeDB.define(
+  "applicationStatus",
+  {
     date: {
-        type: DataTypes.DATE,
-        allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     // Foreign key Application
     applicationId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     // Foreign key Status
     statusId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
+  },
+  {
     createdAt: false,
     updatedAt: false,
-    tableName: 'application_status'
-});
+    tableName: "application_status",
+  }
+);
 
 // Associations
 User.belongsTo(Role, {
-    foreignKey: 'roleId'
+  foreignKey: "roleId",
 });
 
 User.belongsTo(Gender, {
-    foreignKey: 'genderId'
+  foreignKey: "genderId",
 });
 
 User.belongsTo(Department, {
-    foreignKey: 'departmentId'
+  foreignKey: "departmentId",
 });
 
 User.hasOne(Login, {
-    foreignKey: 'userId'
-})
-Login.belongsTo(User)
+  foreignKey: "userId",
+});
+Login.belongsTo(User);
 
 Application.belongsTo(User, {
-    foreignKey: 'userId'
+  foreignKey: "userId",
 });
 
 ApplicationStatus.belongsTo(Application, {
-    foreignKey: 'applicationId'
+  foreignKey: "applicationId",
 });
 
 ApplicationStatus.belongsTo(Status, {
-    foreignKey: 'statusId'
+  foreignKey: "statusId",
 });
 
 // Exports

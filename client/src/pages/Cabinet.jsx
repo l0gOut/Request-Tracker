@@ -1,26 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Context from "../Context";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { GetUserQuery } from "../queries";
 import { Menu, Container, Header, Form } from "semantic-ui-react";
 import { ChangeUser } from "../queries";
+import lodash from "lodash";
+import Cookie from "js-cookie";
 
 function Cabinet() {
+  const User = useContext(Context);
+
+  const [userInfoCheck, setUserInfoCheck] = useState({
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    email: "",
+    phone: "",
+    gender: {
+      genderName: "",
+    },
+    department: {
+      name: "",
+      number: "",
+    },
+  });
+
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
     middleName: "",
     email: "",
     phone: "",
+    gender: {
+      genderName: "",
+    },
+    department: {
+      name: "",
+      number: "",
+    },
   });
 
   const [selectedBlock, setSelectedBlock] = useState(1);
 
-  const [disabledButton, setDisabledButton] = useState(true);
-
-  const User = useContext(Context);
-
-  const { data, loading } = useQuery(GetUserQuery, {
+  const [userQuery, { loading }] = useMutation(GetUserQuery, {
+    onCompleted(data) {
+      setUserInfo(data.getUserById);
+      setUserInfoCheck(data.getUserById);
+    },
     variables: {
       id: parseInt(User.username.login.id),
     },
@@ -28,7 +54,7 @@ function Cabinet() {
 
   const [changeName, { loadingMutation }] = useMutation(ChangeUser, {
     onCompleted() {
-      window.location.reload(false);
+      setUserInfoCheck(userInfo);
     },
     variables: {
       id: parseInt(User.username.login.id),
@@ -40,26 +66,21 @@ function Cabinet() {
     },
   });
 
-  useEffect(() => {
-    if (!loading) {
-      setUserInfo(data.getUserById);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
-
   const selectorChange = (value) => {
     setSelectedBlock(value);
   };
 
   const onSubmit = () => {
-    setDisabledButton(true);
     changeName();
   };
 
   function changeUserInfo(e) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-    setDisabledButton(false);
   }
+
+  useEffect(() => {
+    userQuery();
+  }, []);
 
   return (
     <div className="main-content-box main-cabinet-box">
@@ -99,6 +120,9 @@ function Cabinet() {
           ) : (
             <Form onSubmit={onSubmit}>
               <Header as="h1">Изменение Данных</Header>
+              <Header as="h6">{userInfo.gender.genderName}</Header>
+              <Header as="h6">{userInfo.department.name}</Header>
+              <p>{userInfo.department.number}</p>
               <Form.Input
                 label="Имя"
                 value={userInfo.firstName}
@@ -136,8 +160,13 @@ function Cabinet() {
                 onChange={changeUserInfo}
                 required
               />
-              <Form.Button type="submit" disabled={disabledButton}>
-                {disabledButton ? "Внесите изменения!" : "Сохранить изменения"}
+              <Form.Button
+                type="submit"
+                disabled={lodash.isEqual(userInfo, userInfoCheck)}
+              >
+                {lodash.isEqual(userInfo, userInfoCheck)
+                  ? "Внесите изменения!"
+                  : "Сохранить изменения"}
               </Form.Button>
             </Form>
           )}
@@ -147,11 +176,17 @@ function Cabinet() {
           as={Container}
           active={selectedBlock === 2}
         ></Menu.Item>
-        <Menu.Item
-          className="quit"
-          as={Container}
-          active={selectedBlock === 3}
-        ></Menu.Item>
+        <Menu.Item className="quit" as={Container} active={selectedBlock === 3}>
+          <Form.Button
+            onClick={() => {
+              Cookie.remove("user");
+              User.redirectCabinet.setAuth(false);
+              User.setUser({});
+            }}
+          >
+            Выйти
+          </Form.Button>
+        </Menu.Item>
       </Menu>
     </div>
   );

@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_ALL_TEMPLATES } from "../queries";
+import React, { useEffect, useState, useContext } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  GET_ALL_TEMPLATES,
+  CreateApplication,
+  CreateApplicationStatus,
+} from "../queries";
 import { Menu, Form } from "semantic-ui-react";
+import Context from "../Context";
+import Cookie from "js-cookie";
 
 function Home() {
   const [templates, setTemplates] = useState([]);
   const [activeItem, setActiveItem] = useState(1);
   const [templateForm, setTemplateForm] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [applicationId, setApplicationId] = useState(0);
   const [templateData, setTemplateData] = useState({
     name: "",
     description: "",
@@ -15,8 +23,32 @@ function Home() {
     name: "",
     description: "",
   });
-
   const { data, loading } = useQuery(GET_ALL_TEMPLATES);
+
+  const User = useContext(Context);
+
+  const [createApplication] = useMutation(CreateApplication, {
+    onCompleted(data) {
+      setApplicationId(parseInt(data.createApplication.id));
+      createApplicationStatus();
+    },
+    variables: {
+      name: templateData.name,
+      description: templateData.description,
+      userId: userId,
+    },
+  });
+
+  const [createApplicationStatus] = useMutation(CreateApplicationStatus, {
+    onCompleted() {
+      setTemplateForm(false);
+      alert("Заявка была успешно создана!");
+    },
+    variables: {
+      date: new Date(),
+      applicationId: applicationId,
+    },
+  });
 
   useEffect(() => {
     if (!loading) {
@@ -37,6 +69,15 @@ function Home() {
     setTemplateData({ ...templateData, [e.target.name]: e.target.value });
   }
 
+  async function onSubmitCreateApplication(e) {
+    if (User.username.login) {
+      await setUserId(parseInt(User.username.login.id));
+      createApplication();
+    } else {
+      alert("Зарегистрируйтесь!");
+    }
+  }
+
   return (
     <div className="main-content-box home-content-box">
       <Menu className="home-selector-block">
@@ -55,7 +96,7 @@ function Home() {
         }
       >
         {templateForm ? (
-          <Form className="template-form">
+          <Form className="template-form" onSubmit={onSubmitCreateApplication}>
             <Form.Button
               className="template-cross"
               onClick={() => setTemplateForm(false)}

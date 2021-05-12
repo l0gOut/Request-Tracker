@@ -10,7 +10,7 @@ export const GET_ALL_TEMPLATES = gql`
 `;
 
 export const LoginMutation = gql`
-  mutation($login: String!, $password: String!) {
+  mutation ($login: String!, $password: String!) {
     login(input: { login: $login, password: $password }) {
       id
       login
@@ -20,7 +20,7 @@ export const LoginMutation = gql`
 `;
 
 export const GetUserQuery = gql`
-  query($id: ID!) {
+  mutation ($id: ID!) {
     getUserById(id: $id) {
       id
       firstName
@@ -28,12 +28,19 @@ export const GetUserQuery = gql`
       middleName
       email
       phone
+      gender {
+        genderName
+      }
+      department {
+        name
+        number
+      }
     }
   }
 `;
 
 export const ChangeUser = gql`
-  mutation(
+  mutation (
     $id: ID!
     $firstName: String!
     $lastName: String!
@@ -57,6 +64,29 @@ export const ChangeUser = gql`
       middleName
       email
       phone
+    }
+  }
+`;
+
+export const CreateApplication = gql`
+  mutation ($name: String!, $description: String!, $userId: Int!) {
+    createApplication(
+      input: { name: $name, description: $description, userId: $userId }
+    ) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const CreateApplicationStatus = gql`
+  mutation ($date: String!, $applicationId: Int!, $statusId: Int) {
+    createApplicationStatus(
+      input: { date: $date, applicationId: $applicationId, statusId: $statusId }
+    ) {
+      id
+      date
     }
   }
 `;

@@ -23,7 +23,11 @@ function App() {
 
   return (
     <Context.Provider
-      value={{ redirectCabinet: { auth, setAuth }, username: user }}
+      value={{
+        redirectCabinet: { auth, setAuth },
+        username: user,
+        setUser: setUser,
+      }}
     >
       <BrowserRouter>
         <NavigationBar />
