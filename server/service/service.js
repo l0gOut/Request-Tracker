@@ -1,4 +1,5 @@
 const SequelizeDB = require("./models");
+const { Op } = require("sequelize");
 
 // Functions
 const GetAllApplicationTemplates = async () => {
@@ -74,6 +75,23 @@ const CreateApplicationStatus = async (applicationStatus) => {
   return JSON.parse(JSON.stringify(applicationStatusName.get()));
 };
 
+const GetAllApplications = async (applications) => {
+  const applicationList = await SequelizeDB.ApplicationStatus.findAll({
+    include: [
+      {
+        model: SequelizeDB.Application,
+        where: {
+          userId: applications,
+        },
+      },
+      {
+        model: SequelizeDB.Status,
+      },
+    ],
+  });
+  return JSON.parse(JSON.stringify(applicationList));
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
@@ -82,3 +100,4 @@ module.exports.GetUserById = GetUserById;
 module.exports.ChangeUser = ChangeUser;
 module.exports.CreateApplication = CreateApplication;
 module.exports.CreateApplicationStatus = CreateApplicationStatus;
+module.exports.GetAllApplications = GetAllApplications;

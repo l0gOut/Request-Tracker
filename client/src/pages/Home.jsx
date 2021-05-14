@@ -57,28 +57,27 @@ function TemplateFormComponent() {
 
   const { data, loading } = useQuery(GET_ALL_TEMPLATES);
 
-  const [createApplication] = useMutation(CreateApplication, {
-    async onCompleted(data) {
-      await setApplicationId(parseInt(data.createApplication.id));
-      createApplicationStatus();
-    },
-    variables: {
-      name: templateData.name,
-      description: templateData.description,
-      userId: userId,
-    },
-  });
+  const [createApplication, { loading: loadingMutationOne }] = useMutation(
+    CreateApplication,
+    {
+      onCompleted(data) {
+        setApplicationId(parseInt(data.createApplication.id));
+      },
+      variables: {
+        name: templateData.name,
+        description: templateData.description,
+        userId: userId,
+      },
+    }
+  );
 
-  const [createApplicationStatus] = useMutation(CreateApplicationStatus, {
-    onCompleted() {
-      setTemplateForm(false);
-      alert("Заявка была успешно создана!");
-    },
-    variables: {
-      date: new Date(),
-      applicationId: applicationId,
-    },
-  });
+  const [createApplicationStatus, { loading: loadingMutationTwo }] =
+    useMutation(CreateApplicationStatus, {
+      variables: {
+        date: new Date(),
+        applicationId: applicationId,
+      },
+    });
 
   function templateFormCreate(value) {
     setTemplateData(value);
@@ -89,13 +88,20 @@ function TemplateFormComponent() {
     setTemplateData({ ...templateData, [e.target.name]: e.target.value });
   }
 
-  async function onSubmitCreateApplication(e) {
+  async function onSubmitCreateApplication() {
     if (User.username.login) {
       await setUserId(parseInt(User.username.login.id));
-      createApplication();
-    } else {
-      alert("Зарегистрируйтесь!");
-    }
+      createApplication().then((yes) => {
+        if (yes) {
+          createApplicationStatus().then((yes2) => {
+            if (yes2) {
+              setTemplateForm(false);
+              alert("Заявка была успешно создана!");
+            }
+          });
+        }
+      });
+    } else alert("Зарегистрируйтесь!");
   }
 
   useEffect(() => {
@@ -107,33 +113,38 @@ function TemplateFormComponent() {
   return (
     <>
       {templateForm ? (
-        <Form className="template-form" onSubmit={onSubmitCreateApplication}>
-          <Form.Button
-            className="template-cross"
-            onClick={() => setTemplateForm(false)}
-          >
-            &times;
-          </Form.Button>
-          <Menu.Header as="h1">Создание заявки по шаблону</Menu.Header>
-          <Form.Input
-            className="input-template"
-            disabled
-            label="Имя"
-            name="name"
-            value={templateData.name}
-            onChange={onChangeTemplateData}
-          />
-          <Form.TextArea
-            className="input-template"
-            label="Описание проблемы"
-            name="description"
-            value={templateData.description}
-            onChange={onChangeTemplateData}
-          />
-          <Form.Button type="submit" className="template-submit">
-            Оставить заявку
-          </Form.Button>
-        </Form>
+        loadingMutationOne || loadingMutationTwo ? (
+          <div className="loading"></div>
+        ) : (
+          <Form className="template-form" onSubmit={onSubmitCreateApplication}>
+            <Form.Button
+              className="template-cross"
+              onClick={() => setTemplateForm(false)}
+            >
+              &times;
+            </Form.Button>
+            <Menu.Header as="h1">Создание заявки по шаблону</Menu.Header>
+            <Form.Input
+              className="input-template"
+              disabled
+              label="Имя"
+              name="name"
+              value={templateData.name}
+              onChange={onChangeTemplateData}
+            />
+            <Form.TextArea
+              className="input-template"
+              label="Описание проблемы"
+              name="description"
+              value={templateData.description}
+              onChange={onChangeTemplateData}
+              required
+            />
+            <Form.Button type="submit" className="template-submit">
+              Оставить заявку
+            </Form.Button>
+          </Form>
+        )
       ) : loading ? (
         <div className="loading"></div>
       ) : (
@@ -158,17 +169,59 @@ function TemplateFormComponent() {
 }
 
 function UniqueClaimComponent() {
+  const [userId, setUserId] = useState(0);
+  const [applicationId, setApplicationId] = useState(0);
   const [uniqueClaim, setUniqueClaim] = useState({
     name: "",
     description: "",
   });
 
+  const User = useContext(Context);
+
+  const [addApplication, { loading: loadingMutationOne }] = useMutation(
+    CreateApplication,
+    {
+      onCompleted(data) {
+        setApplicationId(parseInt(data.createApplication.id));
+      },
+      variables: {
+        name: uniqueClaim.name,
+        description: uniqueClaim.description,
+        userId: userId,
+      },
+    }
+  );
+
+  const [addApplicationStatus, { loading: loadingMutationTwo }] = useMutation(
+    CreateApplicationStatus,
+    {
+      variables: {
+        date: new Date(),
+        applicationId: applicationId,
+      },
+    }
+  );
+
   function onChangeUniqueClaim(e) {
     setUniqueClaim({ ...uniqueClaim, [e.target.name]: e.target.value });
   }
 
-  return (
-    <Form className="unique-claim">
+  async function onSubmit(e) {
+    if (User.username.login) {
+      await setUserId(parseInt(User.username.login.id));
+      addApplication().then((yes) => {
+        if (yes)
+          addApplicationStatus().then((yes2) => {
+            if (yes2) alert("Заявка была успешно создана!");
+          });
+      });
+    } else alert("Зарегистрируйтесь!");
+  }
+
+  return loadingMutationOne || loadingMutationTwo ? (
+    <div className="loading"></div>
+  ) : (
+    <Form className="unique-claim" onSubmit={onSubmit}>
       <Menu.Header as="h1">Создание уникальной заявки</Menu.Header>
       <Form.Input
         className="unique-input"
@@ -176,6 +229,7 @@ function UniqueClaimComponent() {
         name="name"
         value={uniqueClaim.name}
         onChange={onChangeUniqueClaim}
+        required
       />
       <Form.TextArea
         className="text-area unique-input"
@@ -184,6 +238,7 @@ function UniqueClaimComponent() {
         rows={3}
         value={uniqueClaim.description}
         onChange={onChangeUniqueClaim}
+        required
       />
       <Form.Button type="submit">Отправить</Form.Button>
     </Form>

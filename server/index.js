@@ -39,6 +39,9 @@ const root = {
   createApplicationStatus: (input) => {
     return Service.CreateApplicationStatus(input.input);
   },
+  getAllApplications: (input) => {
+    return Service.GetAllApplications(input.input);
+  },
 };
 
 // GUI GraphQL

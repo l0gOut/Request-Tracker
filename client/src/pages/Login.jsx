@@ -18,11 +18,12 @@ function Login() {
 
   const [loginUser, { loading }] = useMutation(LoginMutation, {
     update(_, result) {
-      setRedirect(true);
       Cookie.set("user", result.data, {
         expires: 30,
+        secure: true,
       });
       Auth.redirectCabinet.setAuth(true);
+      setRedirect(true);
     },
     onError(error) {
       console.log(error);

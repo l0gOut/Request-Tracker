@@ -90,3 +90,19 @@ export const CreateApplicationStatus = gql`
     }
   }
 `;
+
+export const GetAllApplications = gql`
+  mutation ($id: ID!) {
+    getAllApplications(input: $id) {
+      id
+      date
+      application {
+        name
+        description
+      }
+      status {
+        status
+      }
+    }
+  }
+`;

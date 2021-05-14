@@ -241,6 +241,7 @@ Application.belongsTo(User, {
 
 ApplicationStatus.belongsTo(Application, {
   foreignKey: "applicationId",
+  onDelete: "cascade",
 });
 
 ApplicationStatus.belongsTo(Status, {

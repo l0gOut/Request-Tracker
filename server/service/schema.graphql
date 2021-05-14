@@ -145,4 +145,6 @@ type Mutation {
   createApplication(input: InputApplication!): Application!
 
   createApplicationStatus(input: InputApplicationStatus!): ApplicationStatus!
+
+  getAllApplications(input: ID!): [ApplicationStatus]!
 }
