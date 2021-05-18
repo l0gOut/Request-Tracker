@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import {
-  GET_ALL_TEMPLATES,
-  CreateApplication,
-  CreateApplicationStatus,
-} from "../Queries";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_TEMPLATES } from "../Queries";
 import { Menu, Form } from "semantic-ui-react";
 import Context from "../Context";
 import { store } from "react-notifications-component";
@@ -46,40 +42,27 @@ function Home() {
 }
 
 function TemplateFormComponent() {
+  const [mutationLoading, setMutationLoading] = useState(false);
+  const [mutationReady, setMutationReady] = useState(false);
   const [templateForm, setTemplateForm] = useState(false);
-  const [applicationId, setApplicationId] = useState(0);
   const [templates, setTemplates] = useState([]);
   const [userId, setUserId] = useState(0);
-
-  const User = useContext(Context);
   const [templateData, setTemplateData] = useState({
     name: "",
     description: "",
   });
 
-  const { data, loading } = useQuery(GET_ALL_TEMPLATES);
-
-  const [createApplication, { loading: loadingMutationOne }] = useMutation(
-    CreateApplication,
-    {
-      onCompleted(data) {
-        setApplicationId(parseInt(data.createApplication.id));
-      },
-      variables: {
-        name: templateData.name,
-        description: templateData.description,
-        userId: userId,
-      },
-    }
+  useCreateApplication(
+    templateData,
+    userId,
+    setMutationLoading,
+    mutationReady,
+    setMutationReady
   );
 
-  const [createApplicationStatus, { loading: loadingMutationTwo }] =
-    useMutation(CreateApplicationStatus, {
-      variables: {
-        date: new Date(),
-        applicationId: applicationId,
-      },
-    });
+  const User = useContext(Context);
+
+  const { data, loading } = useQuery(GET_ALL_TEMPLATES);
 
   function templateFormCreate(value) {
     setTemplateData(value);
@@ -90,31 +73,11 @@ function TemplateFormComponent() {
     setTemplateData({ ...templateData, [e.target.name]: e.target.value });
   }
 
-  async function onSubmitCreateApplication() {
+  async function onSubmit() {
     if (User.username.login) {
       await setUserId(parseInt(User.username.login.id));
-      createApplication().then((yes) => {
-        if (yes) {
-          createApplicationStatus().then((yes2) => {
-            if (yes2) {
-              setTemplateForm(false);
-              store.addNotification({
-                message: `Заявка с именем "${templateData.name}" была оставлена!`,
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                dismiss: {
-                  duration: 5000,
-                  onScreen: true,
-                  showIcon: true,
-                  click: true,
-                },
-              });
-            }
-          });
-        }
-      });
-    } else
+      setMutationReady(true);
+    } else {
       store.addNotification({
         message: "Сначало зарегистрируйтесь!",
         type: "danger",
@@ -127,6 +90,7 @@ function TemplateFormComponent() {
           click: true,
         },
       });
+    }
   }
 
   useEffect(() => {
@@ -135,61 +99,57 @@ function TemplateFormComponent() {
     }
   }, [data, loading]);
 
-  return (
-    <>
-      {templateForm ? (
-        loadingMutationOne || loadingMutationTwo ? (
-          <div className="loading"></div>
-        ) : (
-          <Form className="template-form" onSubmit={onSubmitCreateApplication}>
-            <Form.Button
-              className="template-cross"
-              onClick={() => setTemplateForm(false)}
-            >
-              &times;
-            </Form.Button>
-            <Menu.Header as="h1">Создание заявки по шаблону</Menu.Header>
-            <Form.Input
-              className="input-template"
-              disabled
-              label="Имя"
-              name="name"
-              value={templateData.name}
-              onChange={onChangeTemplateData}
-            />
-            <Form.TextArea
-              className="input-template"
-              label="Описание проблемы"
-              name="description"
-              value={templateData.description}
-              onChange={onChangeTemplateData}
-              required
-            />
-            <Form.Button type="submit" className="template-submit">
-              Оставить заявку
-            </Form.Button>
-          </Form>
-        )
-      ) : loading ? (
-        <div className="loading"></div>
-      ) : (
-        templates.map((value, index) => {
-          return (
-            <div className="template-item" key={index}>
-              <h4>{value.name}</h4>
-              <div className="template-description">
-                <p>{value.description}</p>
-              </div>
-              <div className="template-button">
-                <button onClick={() => templateFormCreate(value)}>
-                  Использовать
-                </button>
-              </div>
-            </div>
-          );
-        })
-      )}
-    </>
+  return templateForm ? (
+    mutationLoading ? (
+      <div className="loading"></div>
+    ) : (
+      <Form className="template-form" onSubmit={onSubmit}>
+        <Form.Button
+          className="template-cross"
+          onClick={() => setTemplateForm(false)}
+        >
+          &times;
+        </Form.Button>
+        <Menu.Header as="h1">Создание заявки по шаблону</Menu.Header>
+        <Form.Input
+          className="input-template"
+          disabled
+          label="Имя"
+          name="name"
+          value={templateData.name}
+          onChange={onChangeTemplateData}
+        />
+        <Form.TextArea
+          className="input-template"
+          label="Описание проблемы"
+          name="description"
+          value={templateData.description}
+          onChange={onChangeTemplateData}
+          required
+        />
+        <Form.Button type="submit" className="template-submit">
+          Оставить заявку
+        </Form.Button>
+      </Form>
+    )
+  ) : loading ? (
+    <div className="loading"></div>
+  ) : (
+    templates.map((value, index) => {
+      return (
+        <div className="template-item" key={index}>
+          <h4>{value.name}</h4>
+          <div className="template-description">
+            <p>{value.description}</p>
+          </div>
+          <div className="template-button">
+            <button onClick={() => templateFormCreate(value)}>
+              Использовать
+            </button>
+          </div>
+        </div>
+      );
+    })
   );
 }
 
@@ -197,12 +157,11 @@ function UniqueClaimComponent() {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(0);
   const [mutationReady, setMutationReady] = useState(false);
-  // const [applicationId, setApplicationId] = useState(0);
   const [uniqueClaim, setUniqueClaim] = useState({
     name: "",
     description: "",
   });
-  const customHook = useCreateApplication(
+  useCreateApplication(
     uniqueClaim,
     userId,
     setLoading,
@@ -212,71 +171,11 @@ function UniqueClaimComponent() {
 
   const User = useContext(Context);
 
-  // const [addApplication, { loading: loadingMutationOne }] = useMutation(
-  //   CreateApplication,
-  //   {
-  //     onCompleted(data) {
-  //       setApplicationId(parseInt(data.createApplication.id));
-  //     },
-  //     variables: {
-  //       name: uniqueClaim.name,
-  //       description: uniqueClaim.description,
-  //       userId: userId,
-  //     },
-  //   }
-  // );
-
-  // const [addApplicationStatus, { loading: loadingMutationTwo }] = useMutation(
-  //   CreateApplicationStatus,
-  //   {
-  //     variables: {
-  //       date: new Date(),
-  //       applicationId: applicationId,
-  //     },
-  //   }
-  // );
-
   function onChangeUniqueClaim(e) {
     setUniqueClaim({ ...uniqueClaim, [e.target.name]: e.target.value });
   }
 
-  // async function onSubmit(e) {
-  //   if (User.username.login) {
-  //     await setUserId(parseInt(User.username.login.id));
-  //     addApplication().then((yes) => {
-  //       if (yes)
-  //         addApplicationStatus().then((yes2) => {
-  //           if (yes2)
-  // store.addNotification({
-  //   message: `Заявка с именем "${uniqueClaim.name}" была оставлена!`,
-  //   type: "success",
-  //   insert: "top",
-  //   container: "top-right",
-  //   dismiss: {
-  //     duration: 5000,
-  //     onScreen: true,
-  //     showIcon: true,
-  //     click: true,
-  //   },
-  // });
-  //         });
-  //     });
-  //   } else
-  // store.addNotification({
-  //   message: "Сначало зарегистрируйтесь!",
-  //   type: "danger",
-  //   insert: "top",
-  //   container: "top-right",
-  //   dismiss: {
-  //     duration: 5000,
-  //     onScreen: true,
-  //     showIcon: true,
-  //     click: true,
-  //   },
-  // });
-  // }
-
-  async function onSubmit() {
+  function onSubmit() {
     if (User.username.login) {
       setUserId(parseInt(User.username.login.id));
       setMutationReady(true);

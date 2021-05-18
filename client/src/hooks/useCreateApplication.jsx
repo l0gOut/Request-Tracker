@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { CreateApplication, CreateApplicationStatus } from "../Queries";
 import { store } from "react-notifications-component";
@@ -52,8 +52,7 @@ function useCreateApplication(
 
   useEffect(() => {
     setLoading(loadingMutationOne || loadingMutationTwo);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingMutationOne, loadingMutationTwo]);
+  }, [loadingMutationOne, loadingMutationTwo, setLoading]);
 
   useEffect(() => {
     if (mutationReady) createApplication();

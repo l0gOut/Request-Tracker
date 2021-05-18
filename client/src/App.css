@@ -1,6 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
-@import url("https://cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/components/dropdown.min.css");
-@import url("https://cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/components/dropdown.min.js");
 button {
   cursor: pointer;
 }
@@ -603,7 +601,7 @@ button {
   display: flex;
 }
 
-.info-block .active input,
+.info-block .active input[required],
 .info-block .active label,
 .info-block .active button[type="submit"] {
   margin: 15px 0;
@@ -617,7 +615,7 @@ button {
   margin-bottom: 0;
 }
 
-.info-block .active input {
+.info-block .active input[required] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 0 8px;
@@ -629,7 +627,7 @@ button {
   transition: 200ms;
 }
 
-.info-block .active input:focus, .info-block .active input:hover {
+.info-block .active input[required]:focus, .info-block .active input[required]:hover {
   -webkit-box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
           box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
 }

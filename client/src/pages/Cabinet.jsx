@@ -13,6 +13,7 @@ import { Menu, Container, Header, Form } from "semantic-ui-react";
 import lodash from "lodash";
 import { store } from "react-notifications-component";
 import Cookie from "js-cookie";
+import Select from "react-select";
 
 function Cabinet() {
   const User = useContext(Context);
@@ -81,6 +82,8 @@ function Cabinet() {
 }
 
 function MyProfile() {
+  const User = useContext(Context);
+
   const [userInfoCheck, setUserInfoCheck] = useState({
     firstName: "",
     lastName: "",
@@ -110,8 +113,6 @@ function MyProfile() {
       number: "",
     },
   });
-
-  const User = useContext(Context);
 
   const { data: dataGender, loading: loadingGender } = useQuery(GetAllGender);
 
@@ -199,6 +200,13 @@ function MyProfile() {
         onChange={changeUserInfo}
         required
       />
+      <Select
+        options={[
+          { value: "chocolate", label: "Chocolate" },
+          { value: "strawberry", label: "Strawberry" },
+          { value: "vanilla", label: "Vanilla" },
+        ]}
+      />
       <Form.Input
         label="Почта"
         type="email"
@@ -229,6 +237,7 @@ function MyProfile() {
 
 function MyApplications() {
   const User = useContext(Context);
+
   const [applications, setApplications] = useState([]);
   const [applicationId, setApplicationId] = useState(0);
 

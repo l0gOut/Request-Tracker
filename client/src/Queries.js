@@ -32,6 +32,7 @@ export const GetUserQuery = gql`
         genderName
       }
       department {
+        id
         name
         number
       }
