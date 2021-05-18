@@ -1,9 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import Context from "../Context";
-import { useMutation } from "@apollo/client";
-import { GetUserQuery, ChangeUser, GetAllApplications } from "../Queries";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  GetUserQuery,
+  ChangeUser,
+  GetAllApplications,
+  DeleteApplication,
+  GetAllGender,
+  GetAllDepartment,
+} from "../Queries";
 import { Menu, Container, Header, Form } from "semantic-ui-react";
 import lodash from "lodash";
+import { store } from "react-notifications-component";
 import Cookie from "js-cookie";
 
 function Cabinet() {
@@ -105,6 +113,14 @@ function MyProfile() {
 
   const User = useContext(Context);
 
+  const { data: dataGender, loading: loadingGender } = useQuery(GetAllGender);
+
+  const { data: dataDepartment } = useQuery(GetAllDepartment, {
+    onCompleted() {
+      console.log(dataDepartment.getAllDepartment);
+    },
+  });
+
   const [userQuery, { loading }] = useMutation(GetUserQuery, {
     onCompleted(data) {
       setUserInfo(data.getUserById);
@@ -118,7 +134,18 @@ function MyProfile() {
   const [changeName, { loading: loadingMutation }] = useMutation(ChangeUser, {
     onCompleted() {
       setUserInfoCheck(userInfo);
-      alert("Данные были изменены успешно!");
+      store.addNotification({
+        message: "Данные были изменены!",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          showIcon: true,
+          click: true,
+        },
+      });
     },
     variables: {
       id: parseInt(User.username.login.id),
@@ -143,7 +170,7 @@ function MyProfile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return loadingMutation || loading ? (
+  return loadingMutation || loading || loadingGender ? (
     <div className="loading"></div>
   ) : (
     <Form onSubmit={onSubmit}>
@@ -203,6 +230,7 @@ function MyProfile() {
 function MyApplications() {
   const User = useContext(Context);
   const [applications, setApplications] = useState([]);
+  const [applicationId, setApplicationId] = useState(0);
 
   const [queryAllApplications, { loading }] = useMutation(GetAllApplications, {
     onCompleted(data) {
@@ -213,32 +241,71 @@ function MyApplications() {
     },
   });
 
+  const [deleteApplication, { loading: loadingMutation }] = useMutation(
+    DeleteApplication,
+    {
+      onCompleted() {
+        store.addNotification({
+          message: "Заявка была удалена!",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          dismiss: {
+            duration: 5000,
+            onScreen: true,
+            showIcon: true,
+            click: true,
+          },
+        });
+        queryAllApplications();
+      },
+      variables: {
+        id: applicationId,
+      },
+    }
+  );
+
+  async function onDeleteApplication(value) {
+    await setApplicationId(value);
+    deleteApplication();
+  }
+
   useEffect(() => {
     queryAllApplications();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return loading ? (
+  return loading || loadingMutation ? (
     <div className="loading"></div>
+  ) : applications.length === 0 ? (
+    <h1 className="null-applications">Вы не оставляли заявок!</h1>
   ) : (
     applications.map((value) => {
       return (
         <div key={value.id} className="application-item">
-          <h2>{value.application.name}</h2>
-          <div>
+          <div className="header-application">
+            <h2>{value.application.name}</h2>
+            <button onClick={() => onDeleteApplication(value.application.id)}>
+              &times;
+            </button>
+          </div>
+          <div className="application-item-description">
             <p>{value.application.description}</p>
           </div>
-          <h6
-            className={
-              value.status.status === "Не рассмотрена"
-                ? "application-red"
-                : value.status.status === "Выполняется..."
-                ? "application-yellow"
-                : "application-green"
-            }
-          >
-            {value.status.status}
-          </h6>
+          <div className="date-status">
+            <p>{value.date.toString().substring(0, 10)}</p>
+            <h6
+              className={
+                value.status.status === "Не рассмотрена"
+                  ? "application-red"
+                  : value.status.status === "Выполняется..."
+                  ? "application-yellow"
+                  : "application-green"
+              }
+            >
+              {value.status.status}
+            </h6>
+          </div>
         </div>
       );
     })

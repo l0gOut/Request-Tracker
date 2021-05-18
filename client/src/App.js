@@ -8,6 +8,8 @@ import Context from "./Context";
 import Home from "./pages/Home";
 import Cookie from "js-cookie";
 import "./App.css";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -30,6 +32,7 @@ function App() {
       }}
     >
       <BrowserRouter>
+        <ReactNotification />
         <NavigationBar />
         <RouterPages />
         <ModalWindowAudio />

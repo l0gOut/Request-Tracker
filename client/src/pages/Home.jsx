@@ -7,6 +7,8 @@ import {
 } from "../Queries";
 import { Menu, Form } from "semantic-ui-react";
 import Context from "../Context";
+import { store } from "react-notifications-component";
+import useCreateApplication from "../hooks/useCreateApplication";
 
 function Home() {
   const [activeItem, setActiveItem] = useState(1);
@@ -96,12 +98,35 @@ function TemplateFormComponent() {
           createApplicationStatus().then((yes2) => {
             if (yes2) {
               setTemplateForm(false);
-              alert("Заявка была успешно создана!");
+              store.addNotification({
+                message: `Заявка с именем "${templateData.name}" была оставлена!`,
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true,
+                  showIcon: true,
+                  click: true,
+                },
+              });
             }
           });
         }
       });
-    } else alert("Зарегистрируйтесь!");
+    } else
+      store.addNotification({
+        message: "Сначало зарегистрируйтесь!",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          showIcon: true,
+          click: true,
+        },
+      });
   }
 
   useEffect(() => {
@@ -169,56 +194,109 @@ function TemplateFormComponent() {
 }
 
 function UniqueClaimComponent() {
+  const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(0);
-  const [applicationId, setApplicationId] = useState(0);
+  const [mutationReady, setMutationReady] = useState(false);
+  // const [applicationId, setApplicationId] = useState(0);
   const [uniqueClaim, setUniqueClaim] = useState({
     name: "",
     description: "",
   });
+  const customHook = useCreateApplication(
+    uniqueClaim,
+    userId,
+    setLoading,
+    mutationReady,
+    setMutationReady
+  );
 
   const User = useContext(Context);
 
-  const [addApplication, { loading: loadingMutationOne }] = useMutation(
-    CreateApplication,
-    {
-      onCompleted(data) {
-        setApplicationId(parseInt(data.createApplication.id));
-      },
-      variables: {
-        name: uniqueClaim.name,
-        description: uniqueClaim.description,
-        userId: userId,
-      },
-    }
-  );
+  // const [addApplication, { loading: loadingMutationOne }] = useMutation(
+  //   CreateApplication,
+  //   {
+  //     onCompleted(data) {
+  //       setApplicationId(parseInt(data.createApplication.id));
+  //     },
+  //     variables: {
+  //       name: uniqueClaim.name,
+  //       description: uniqueClaim.description,
+  //       userId: userId,
+  //     },
+  //   }
+  // );
 
-  const [addApplicationStatus, { loading: loadingMutationTwo }] = useMutation(
-    CreateApplicationStatus,
-    {
-      variables: {
-        date: new Date(),
-        applicationId: applicationId,
-      },
-    }
-  );
+  // const [addApplicationStatus, { loading: loadingMutationTwo }] = useMutation(
+  //   CreateApplicationStatus,
+  //   {
+  //     variables: {
+  //       date: new Date(),
+  //       applicationId: applicationId,
+  //     },
+  //   }
+  // );
 
   function onChangeUniqueClaim(e) {
     setUniqueClaim({ ...uniqueClaim, [e.target.name]: e.target.value });
   }
 
-  async function onSubmit(e) {
+  // async function onSubmit(e) {
+  //   if (User.username.login) {
+  //     await setUserId(parseInt(User.username.login.id));
+  //     addApplication().then((yes) => {
+  //       if (yes)
+  //         addApplicationStatus().then((yes2) => {
+  //           if (yes2)
+  // store.addNotification({
+  //   message: `Заявка с именем "${uniqueClaim.name}" была оставлена!`,
+  //   type: "success",
+  //   insert: "top",
+  //   container: "top-right",
+  //   dismiss: {
+  //     duration: 5000,
+  //     onScreen: true,
+  //     showIcon: true,
+  //     click: true,
+  //   },
+  // });
+  //         });
+  //     });
+  //   } else
+  // store.addNotification({
+  //   message: "Сначало зарегистрируйтесь!",
+  //   type: "danger",
+  //   insert: "top",
+  //   container: "top-right",
+  //   dismiss: {
+  //     duration: 5000,
+  //     onScreen: true,
+  //     showIcon: true,
+  //     click: true,
+  //   },
+  // });
+  // }
+
+  async function onSubmit() {
     if (User.username.login) {
-      await setUserId(parseInt(User.username.login.id));
-      addApplication().then((yes) => {
-        if (yes)
-          addApplicationStatus().then((yes2) => {
-            if (yes2) alert("Заявка была успешно создана!");
-          });
+      setUserId(parseInt(User.username.login.id));
+      setMutationReady(true);
+    } else {
+      store.addNotification({
+        message: "Сначало зарегистрируйтесь!",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          showIcon: true,
+          click: true,
+        },
       });
-    } else alert("Зарегистрируйтесь!");
+    }
   }
 
-  return loadingMutationOne || loadingMutationTwo ? (
+  return loading ? (
     <div className="loading"></div>
   ) : (
     <Form className="unique-claim" onSubmit={onSubmit}>

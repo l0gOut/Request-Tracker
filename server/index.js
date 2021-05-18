@@ -42,6 +42,15 @@ const root = {
   getAllApplications: (input) => {
     return Service.GetAllApplications(input.input);
   },
+  deleteApplication: (input) => {
+    return Service.DeleteApplication(input.id);
+  },
+  getAllGender: () => {
+    return Service.GetAllGender();
+  },
+  getAllDepartment: () => {
+    return Service.GetAllDepartment();
+  },
 };
 
 // GUI GraphQL

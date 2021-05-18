@@ -127,6 +127,10 @@ input InputApplicationStatus {
 
 type Query {
   getAllApplicationTemplates: [ApplicationTemplate]!
+
+  getAllGender: [Gender]!
+
+  getAllDepartment: [Department]!
 }
 
 type Mutation {
@@ -147,4 +151,6 @@ type Mutation {
   createApplicationStatus(input: InputApplicationStatus!): ApplicationStatus!
 
   getAllApplications(input: ID!): [ApplicationStatus]!
+
+  deleteApplication(id: ID!): Boolean!
 }

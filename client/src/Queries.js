@@ -97,12 +97,39 @@ export const GetAllApplications = gql`
       id
       date
       application {
+        id
         name
         description
       }
       status {
         status
       }
+    }
+  }
+`;
+
+export const DeleteApplication = gql`
+  mutation ($id: ID!) {
+    deleteApplication(id: $id)
+  }
+`;
+
+export const GetAllGender = gql`
+  query {
+    getAllGender {
+      id
+      codeGender
+      genderName
+    }
+  }
+`;
+
+export const GetAllDepartment = gql`
+  query {
+    getAllDepartment {
+      id
+      name
+      number
     }
   }
 `;

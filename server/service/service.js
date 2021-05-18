@@ -92,6 +92,25 @@ const GetAllApplications = async (applications) => {
   return JSON.parse(JSON.stringify(applicationList));
 };
 
+const DeleteApplication = async (id) => {
+  await SequelizeDB.Application.destroy({
+    where: {
+      id: id,
+    },
+  });
+  return true;
+};
+
+const GetAllGender = async () => {
+  const genders = await SequelizeDB.Gender.findAll();
+  return JSON.parse(JSON.stringify(genders));
+};
+
+const GetAllDepartment = async () => {
+  const departments = await SequelizeDB.Department.findAll();
+  return JSON.parse(JSON.stringify(departments));
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
@@ -101,3 +120,6 @@ module.exports.ChangeUser = ChangeUser;
 module.exports.CreateApplication = CreateApplication;
 module.exports.CreateApplicationStatus = CreateApplicationStatus;
 module.exports.GetAllApplications = GetAllApplications;
+module.exports.DeleteApplication = DeleteApplication;
+module.exports.GetAllGender = GetAllGender;
+module.exports.GetAllDepartment = GetAllDepartment;
