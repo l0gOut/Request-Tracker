@@ -101,6 +101,11 @@ const DeleteApplication = async (id) => {
   return true;
 };
 
+const GetAllRoles = async () => {
+  const roles = await SequelizeDB.Role.findAll();
+  return JSON.parse(JSON.stringify(roles));
+};
+
 const GetAllGender = async () => {
   const genders = await SequelizeDB.Gender.findAll();
   return JSON.parse(JSON.stringify(genders));
@@ -109,6 +114,35 @@ const GetAllGender = async () => {
 const GetAllDepartment = async () => {
   const departments = await SequelizeDB.Department.findAll();
   return JSON.parse(JSON.stringify(departments));
+};
+
+const CreateLogin = async (input) => {
+  const login = await SequelizeDB.Login.create({
+    login: input.login,
+    password: input.password,
+    userId: input.user,
+  });
+  return JSON.parse(JSON.stringify(login.get()));
+};
+
+const CreateUser = async (input) => {
+  const user = await SequelizeDB.User.create({
+    firstName: input.firstName,
+    lastName: input.lastName,
+    middleName: input.middleName,
+    email: input.email,
+    registrationDate: new Date(),
+    phone: input.phone,
+    roleId: input.role,
+    genderId: input.gender,
+    departmentId: input.department,
+  });
+  return JSON.parse(JSON.stringify(user.get()));
+};
+
+const GetAllLogin = async () => {
+  const loginList = await SequelizeDB.Login.findAll();
+  return JSON.parse(JSON.stringify(loginList));
 };
 
 // Exports
@@ -121,5 +155,9 @@ module.exports.CreateApplication = CreateApplication;
 module.exports.CreateApplicationStatus = CreateApplicationStatus;
 module.exports.GetAllApplications = GetAllApplications;
 module.exports.DeleteApplication = DeleteApplication;
+module.exports.GetAllRoles = GetAllRoles;
 module.exports.GetAllGender = GetAllGender;
 module.exports.GetAllDepartment = GetAllDepartment;
+module.exports.CreateLogin = CreateLogin;
+module.exports.CreateUser = CreateUser;
+module.exports.GetAllLogin = GetAllLogin;

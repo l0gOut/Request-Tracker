@@ -540,6 +540,8 @@ button {
   text-shadow: 0 0 2px white;
   cursor: pointer;
   position: relative;
+  -webkit-transition: font-size 200ms;
+  transition: font-size 200ms;
 }
 
 .selector-block .item:hover {
@@ -589,6 +591,7 @@ button {
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid #008a8a;
+  overflow: auto;
 }
 
 .info-block .container {
@@ -878,6 +881,7 @@ button {
 .request .application-item .application-item-description {
   height: 60%;
   width: 100%;
+  overflow-y: auto;
 }
 
 .request .application-item .application-item-description p {
@@ -929,6 +933,30 @@ button {
   font-size: 48px;
 }
 
+.admin-chose {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 150px;
+}
+
+.admin-chose .select {
+  margin: 10px 0;
+  width: 100%;
+  font-size: 24px;
+}
+
+@media screen and (max-width: 1650px) {
+  .selector-block .item {
+    font-size: 18px;
+  }
+}
+
 @media screen and (max-width: 1600px) {
   .home-selector-block .item {
     font-size: 24px;
@@ -941,6 +969,12 @@ button {
   }
   .request .application-item .date-status p {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .selector-block .item {
+    font-size: 14px;
   }
 }
 

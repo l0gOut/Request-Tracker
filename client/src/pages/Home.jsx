@@ -75,7 +75,7 @@ function TemplateFormComponent() {
 
   async function onSubmit() {
     if (User.username.login) {
-      await setUserId(parseInt(User.username.login.id));
+      await setUserId(parseInt(User.username.login.userId));
       setMutationReady(true);
     } else {
       store.addNotification({
@@ -177,7 +177,7 @@ function UniqueClaimComponent() {
 
   function onSubmit() {
     if (User.username.login) {
-      setUserId(parseInt(User.username.login.id));
+      setUserId(parseInt(User.username.login.userId));
       setMutationReady(true);
     } else {
       store.addNotification({

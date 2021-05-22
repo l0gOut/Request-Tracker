@@ -25,8 +25,7 @@ function Login() {
       Auth.redirectCabinet.setAuth(true);
       setRedirect(true);
     },
-    onError(error) {
-      console.log(error);
+    onError() {
       setError("Неправильный логин или пароль!");
     },
     variables: {

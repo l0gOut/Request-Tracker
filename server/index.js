@@ -45,11 +45,23 @@ const root = {
   deleteApplication: (input) => {
     return Service.DeleteApplication(input.id);
   },
+  getAllRole: () => {
+    return Service.GetAllRoles();
+  },
   getAllGender: () => {
     return Service.GetAllGender();
   },
   getAllDepartment: () => {
     return Service.GetAllDepartment();
+  },
+  createLogin: (input) => {
+    return Service.CreateLogin(input.input);
+  },
+  createUser: (input) => {
+    return Service.CreateUser(input.input);
+  },
+  getAllLogin: () => {
+    return Service.GetAllLogin();
   },
 };
 

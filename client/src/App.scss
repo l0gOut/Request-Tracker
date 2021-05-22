@@ -417,6 +417,7 @@ button {
     text-shadow: 0 0 2px white;
     cursor: pointer;
     position: relative;
+    transition: font-size 200ms;
 
     &:hover {
       background-color: $hover-dark-cyan;
@@ -458,6 +459,7 @@ button {
   justify-content: center;
   align-items: center;
   border: 1px solid $dark-cyan;
+  overflow: auto;
 
   .container {
     display: none;
@@ -692,6 +694,8 @@ button {
     .application-item-description {
       height: 60%;
       width: 100%;
+      overflow-y: auto;
+
       p {
         margin: 0;
         padding: 10px;
@@ -738,6 +742,27 @@ button {
   font-size: 48px;
 }
 
+.admin-chose {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 150px;
+
+  .select {
+    margin: 10px 0;
+    width: 100%;
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 1650px) {
+  .selector-block {
+    .item {
+      font-size: 18px;
+    }
+  }
+}
+
 @media screen and (max-width: 1600px) {
   .home-selector-block {
     .item {
@@ -758,6 +783,14 @@ button {
           font-size: 16px;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .selector-block {
+    .item {
+      font-size: 14px;
     }
   }
 }

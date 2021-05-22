@@ -15,6 +15,7 @@ export const LoginMutation = gql`
       id
       login
       password
+      userId
     }
   }
 `;
@@ -35,6 +36,9 @@ export const GetUserQuery = gql`
         id
         name
         number
+      }
+      role {
+        roleName
       }
     }
   }
@@ -115,6 +119,15 @@ export const DeleteApplication = gql`
   }
 `;
 
+export const GetAllRole = gql`
+  query {
+    getAllRole {
+      id
+      roleName
+    }
+  }
+`;
+
 export const GetAllGender = gql`
   query {
     getAllGender {
@@ -131,6 +144,52 @@ export const GetAllDepartment = gql`
       id
       name
       number
+    }
+  }
+`;
+
+export const CreateUser = gql`
+  mutation (
+    $firstName: String!
+    $lastName: String!
+    $middleName: String!
+    $email: String!
+    $phone: String!
+    $role: ID!
+    $gender: ID!
+    $department: ID!
+  ) {
+    createUser(
+      input: {
+        firstName: $firstName
+        lastName: $lastName
+        middleName: $middleName
+        email: $email
+        phone: $phone
+        role: $role
+        gender: $gender
+        department: $department
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const CreateLogin = gql`
+  mutation ($login: String!, $password: String!, $user: ID!) {
+    createLogin(input: { login: $login, password: $password, user: $user }) {
+      id
+      login
+      password
+    }
+  }
+`;
+
+export const GetAllLoginList = gql`
+  mutation {
+    getAllLogin {
+      login
     }
   }
 `;

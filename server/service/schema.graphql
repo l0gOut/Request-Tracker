@@ -40,6 +40,7 @@ type Login {
   id: ID
   login: String
   password: String
+  userId: ID
 }
 
 type Application {
@@ -64,7 +65,12 @@ type ApplicationStatus {
 # Input Models
 
 input InputLogin {
-  id: ID
+  login: String!
+  password: String!
+  user: ID!
+}
+
+input InputLoginJoin {
   login: String!
   password: String!
 }
@@ -92,14 +98,11 @@ input InputUser {
   firstName: String!
   lastName: String!
   middleName: String
-  login: String!
-  password: String!
   email: String!
-  registrationDate: String
   phone: String!
-  role: InputRole!
-  gender: InputGender!
-  department: InputDepartment!
+  role: ID!
+  gender: ID!
+  department: ID!
 }
 
 input ChangeUser {
@@ -128,6 +131,8 @@ input InputApplicationStatus {
 type Query {
   getAllApplicationTemplates: [ApplicationTemplate]!
 
+  getAllRole: [Role]!
+
   getAllGender: [Gender]!
 
   getAllDepartment: [Department]!
@@ -142,7 +147,7 @@ type Mutation {
 
   deleteApplicationTemplate(id: ID!): ApplicationTemplate!
 
-  login(input: InputLogin!): Login!
+  login(input: InputLoginJoin!): Login!
 
   changeUser(input: ChangeUser!): User!
 
@@ -153,4 +158,10 @@ type Mutation {
   getAllApplications(input: ID!): [ApplicationStatus]!
 
   deleteApplication(id: ID!): Boolean!
+
+  createUser(input: InputUser!): User!
+
+  createLogin(input: InputLogin!): Login!
+
+  getAllLogin: [Login]!
 }
