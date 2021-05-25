@@ -12,8 +12,11 @@ import {
   CreateUser,
   CreateLogin,
   GetAllLoginList,
+  GetAllApplicationsAdmin,
+  GetAllStatus,
+  ChangeStatus,
 } from "../Queries";
-import { Menu, Container, Header, Form } from "semantic-ui-react";
+import { Menu, Container, Header, Form, Button } from "semantic-ui-react";
 import lodash from "lodash";
 import { store } from "react-notifications-component";
 import Cookie from "js-cookie";
@@ -99,7 +102,7 @@ function Cabinet() {
           as={Container}
           active={selectedBlock === 2}
         >
-          <MyApplications />
+          <MyApplications number={selectedBlock} />
         </Menu.Item>
         {role === "Администратор" ? (
           <>
@@ -115,7 +118,7 @@ function Cabinet() {
               as={Container}
               active={selectedBlock === 4}
             >
-              <AllApplications />
+              <AllApplications number={selectedBlock} />
             </Menu.Item>
           </>
         ) : (
@@ -170,13 +173,13 @@ function MyProfile() {
     },
   });
 
-  const { data: dataGender, loading: loadingGender } = useQuery(GetAllGender);
+  // const { data: dataGender, loading: loadingGender } = useQuery(GetAllGender);
 
-  const { data: dataDepartment } = useQuery(GetAllDepartment, {
-    onCompleted() {
-      // console.log(dataDepartment.getAllDepartment);
-    },
-  });
+  // const { data: dataDepartment } = useQuery(GetAllDepartment, {
+  //   onCompleted() {
+  //     // console.log(dataDepartment.getAllDepartment);
+  //   },
+  // });
 
   const [userQuery, { loading }] = useMutation(GetUserQuery, {
     onCompleted(data) {
@@ -224,17 +227,19 @@ function MyProfile() {
 
   useEffect(() => {
     userQuery();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return loadingMutation || loading || loadingGender ? (
+  return loadingMutation || loading ? (
+    // || loadingGender
     <div className="loading"></div>
   ) : (
     <Form onSubmit={onSubmit}>
       <Header as="h1">Изменение Данных</Header>
-      <Header as="h4">{userInfo.gender.genderName}</Header>
-      <Header as="h4">{userInfo.department.name}</Header>
-      <p>{userInfo.department.number}</p>
+      <Header as="h4">Пол: {userInfo.gender.genderName}</Header>
+      <Header as="h4">Имя кабинета: {userInfo.department.name}</Header>
+      <p>Номер кабинета: {userInfo.department.number}</p>
       <Form.Input
         label="Имя"
         value={userInfo.firstName}
@@ -284,7 +289,7 @@ function MyProfile() {
   );
 }
 
-function MyApplications() {
+function MyApplications({ number }) {
   const User = useContext(Context);
 
   const [applications, setApplications] = useState([]);
@@ -329,9 +334,11 @@ function MyApplications() {
   }
 
   useEffect(() => {
-    queryAllApplications();
+    if (number === 2) {
+      queryAllApplications();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [number]);
 
   return loading || loadingMutation ? (
     <div className="loading"></div>
@@ -614,8 +621,199 @@ function CreateUserForm() {
   );
 }
 
-function AllApplications() {
-  return <div></div>;
+function AllApplications({ number }) {
+  const [application, setApplication] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [applicationId, setApplicationId] = useState(0);
+  const [applicationInfo, setApplicationInfo] = useState({ 0: { id: 1 } });
+
+  const [allApplication, { loading: loadOne }] = useMutation(
+    GetAllApplicationsAdmin,
+    {
+      onCompleted(data) {
+        setApplication(data.getAllApplicationsAdmin);
+      },
+    }
+  );
+
+  const [allStatus, { loading: loadTwo }] = useMutation(GetAllStatus, {
+    onCompleted(data) {
+      data.getAllStatus.map((value) =>
+        statusList.push({
+          value: value,
+          label: `Статус: ${value.status}`,
+        })
+      );
+    },
+  });
+
+  const [deleteApplication, { loading: loadingMutation }] = useMutation(
+    DeleteApplication,
+    {
+      onCompleted() {
+        store.addNotification({
+          message: "Заявка была удалена!",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          dismiss: {
+            duration: 5000,
+            onScreen: true,
+            showIcon: true,
+            click: true,
+          },
+        });
+        allApplication();
+      },
+      variables: {
+        id: applicationId,
+      },
+    }
+  );
+
+  const [changeStatus, { loading: loadingChangeStatus }] = useMutation(
+    ChangeStatus,
+    {
+      onCompleted() {
+        store.addNotification({
+          message: "Статус заявки был изменен!",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          dismiss: {
+            duration: 5000,
+            onScreen: true,
+            showIcon: true,
+            click: true,
+          },
+        });
+        setApplicationId(0);
+        setApplicationInfo({ 0: { id: 1 } });
+        allApplication();
+      },
+      variables: {
+        id: applicationId,
+        statusId: applicationInfo[applicationId].id,
+      },
+    }
+  );
+
+  async function onDeleteApplication(value) {
+    await setApplicationId(value);
+    deleteApplication();
+  }
+
+  async function changeApplicationStatus(value, name) {
+    if (applicationInfo[value]) {
+      if (applicationInfo[value].status === name.name) {
+        store.addNotification({
+          message: "Вы выбрали тот же статус! Пожалуйста выберите новый!",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          dismiss: {
+            duration: 5000,
+            onScreen: true,
+            showIcon: true,
+            click: true,
+          },
+        });
+      } else {
+        await setApplicationId(value);
+        changeStatus();
+      }
+    } else {
+      store.addNotification({
+        message: "Выберите новое значение для статуса!",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          showIcon: true,
+          click: true,
+        },
+      });
+    }
+  }
+
+  function onSelected(value, name) {
+    setApplicationInfo({
+      ...applicationInfo,
+      [name.name]: value.value,
+    });
+    console.log(applicationInfo);
+  }
+
+  useEffect(() => {
+    if (number === 4) {
+      allApplication();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [number]);
+
+  useEffect(() => {
+    setStatusList([]);
+    allStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <>
+      {loadTwo || loadOne || loadingMutation || loadingChangeStatus ? (
+        <div className="loading"></div>
+      ) : application.length >= 1 ? (
+        application.map((value) => {
+          return (
+            <div
+              key={value.id}
+              className={
+                value.status.status === "Не рассмотрена"
+                  ? "application-item red"
+                  : value.status.status === "Выполняется..."
+                  ? "application-item orange"
+                  : "application-item green"
+              }
+            >
+              <div className="header-application">
+                <h2>{value.application.name}</h2>
+                <button
+                  title="Удалить заявку"
+                  onClick={() => onDeleteApplication(value.application.id)}
+                >
+                  &times;
+                </button>
+              </div>
+              <div className="application-item-description">
+                <p>{value.application.description}</p>
+              </div>
+              <div className="date-status">
+                <p>{value.date.toString().substring(0, 10)}</p>
+                <p>Нынешний статус: {value.status.status}</p>
+              </div>
+              <div className="select-option">
+                <Select
+                  className="select"
+                  name={value.id}
+                  options={statusList}
+                  onChange={(value, name) => onSelected(value, name)}
+                />
+                <Button
+                  name={value.status.status}
+                  onClick={(_, name) => changeApplicationStatus(value.id, name)}
+                >
+                  Изменить
+                </Button>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <h1>Нет заявок в базе данных!</h1>
+      )}
+    </>
+  );
 }
 
 export default Cabinet;

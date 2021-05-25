@@ -63,6 +63,15 @@ const root = {
   getAllLogin: () => {
     return Service.GetAllLogin();
   },
+  getAllApplicationsAdmin: () => {
+    return Service.GetAllApplicationsAdmin();
+  },
+  getAllStatus: () => {
+    return Service.GetAllStatus();
+  },
+  changeStatus: (input) => {
+    return Service.ChangeStatus(input.input);
+  },
 };
 
 // GUI GraphQL

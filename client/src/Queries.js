@@ -193,3 +193,38 @@ export const GetAllLoginList = gql`
     }
   }
 `;
+
+export const GetAllApplicationsAdmin = gql`
+  mutation {
+    getAllApplicationsAdmin {
+      id
+      date
+      application {
+        id
+        name
+        description
+      }
+      status {
+        id
+        status
+      }
+    }
+  }
+`;
+
+export const GetAllStatus = gql`
+  mutation {
+    getAllStatus {
+      id
+      status
+    }
+  }
+`;
+
+export const ChangeStatus = gql`
+  mutation ($id: ID!, $statusId: ID!) {
+    changeStatus(input: { id: $id, statusId: $statusId }) {
+      date
+    }
+  }
+`;

@@ -9,11 +9,15 @@ import Home from "./pages/Home";
 import Cookie from "js-cookie";
 import "./App.css";
 import ReactNotification from "react-notifications-component";
+import Mousetrap from "mousetrap";
 import "react-notifications-component/dist/theme.css";
 
 function App() {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
+  const [audioActive, setAudioActive] = useState(false);
+
+  Mousetrap.bind("M U S I C", () => setAudioActive(!audioActive));
 
   useEffect(() => {
     const cookieAuth = Cookie.get("user");
@@ -35,7 +39,7 @@ function App() {
         <ReactNotification />
         <NavigationBar />
         <RouterPages />
-        <ModalWindowAudio />
+        {audioActive ? <ModalWindowAudio /> : ""}
       </BrowserRouter>
     </Context.Provider>
   );

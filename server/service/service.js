@@ -145,6 +145,36 @@ const GetAllLogin = async () => {
   return JSON.parse(JSON.stringify(loginList));
 };
 
+const GetAllApplicationsAdmin = async () => {
+  const applicationList = await SequelizeDB.ApplicationStatus.findAll({
+    include: {
+      all: true,
+    },
+  });
+  return JSON.parse(JSON.stringify(applicationList));
+};
+
+const GetAllStatus = async () => {
+  const statusList = await SequelizeDB.Status.findAll();
+  return JSON.parse(JSON.stringify(statusList));
+};
+
+const ChangeStatus = async (input) => {
+  const application = await SequelizeDB.ApplicationStatus.update(
+    {
+      statusId: input.statusId,
+    },
+    {
+      returning: true,
+
+      where: {
+        id: input.id,
+      },
+    }
+  );
+  return JSON.parse(JSON.stringify(application));
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
@@ -161,3 +191,6 @@ module.exports.GetAllDepartment = GetAllDepartment;
 module.exports.CreateLogin = CreateLogin;
 module.exports.CreateUser = CreateUser;
 module.exports.GetAllLogin = GetAllLogin;
+module.exports.GetAllApplicationsAdmin = GetAllApplicationsAdmin;
+module.exports.GetAllStatus = GetAllStatus;
+module.exports.ChangeStatus = ChangeStatus;

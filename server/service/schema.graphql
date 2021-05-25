@@ -126,6 +126,11 @@ input InputApplicationStatus {
   statusId: Int
 }
 
+input ChangeStatus {
+  id: ID!
+  statusId: ID!
+}
+
 # Root Types
 
 type Query {
@@ -164,4 +169,10 @@ type Mutation {
   createLogin(input: InputLogin!): Login!
 
   getAllLogin: [Login]!
+
+  getAllApplicationsAdmin: [ApplicationStatus]!
+
+  getAllStatus: [Status]!
+
+  changeStatus(input: ChangeStatus!): ApplicationStatus!
 }

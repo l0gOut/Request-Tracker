@@ -712,6 +712,7 @@ button {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      // background-color: #fcb51b;
 
       p {
         font-size: 18px;
@@ -729,7 +730,7 @@ button {
     }
 
     .application-yellow {
-      color: yellow;
+      color: orange;
     }
 
     .application-green {
@@ -755,6 +756,154 @@ button {
   }
 }
 
+.all-applications {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  overflow-x: auto;
+  flex-wrap: wrap;
+
+  .red {
+    border: 1px solid red;
+
+    .header-application {
+      border: 1px solid red;
+    }
+
+    .application-item-description {
+      border: 1px solid red;
+    }
+
+    .select-option {
+      border: 1px solid red;
+    }
+  }
+
+  .orange {
+    border: 1px solid orange;
+
+    .header-application {
+      border: 1px solid orange;
+    }
+
+    .application-item-description {
+      border: 1px solid orange;
+    }
+
+    .select-option {
+      border: 1px solid orange;
+    }
+  }
+
+  .green {
+    border: 1px solid green;
+
+    .header-application {
+      border: 1px solid green;
+    }
+
+    .application-item-description {
+      border: 1px solid green;
+    }
+
+    .select-option {
+      border: 1px solid green;
+    }
+  }
+
+  .application-item {
+    margin: 5px;
+    width: 45%;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    justify-content: space-between;
+
+    .header-application {
+      display: flex;
+      justify-content: space-between;
+      border-width: 0 0 1px 0;
+      align-items: center;
+      height: 15%;
+
+      h2 {
+        margin: 0 0 0 10px;
+        transition: font-size 200ms;
+      }
+
+      button {
+        outline: none;
+        border: none;
+        background: none;
+        color: $light-blue;
+        height: 40px;
+        width: 40px;
+        font-size: 32px;
+        padding: 0;
+
+        &:active {
+          color: $button-active;
+        }
+      }
+    }
+
+    .application-item-description {
+      height: 40%;
+      border-width: 0 0 1px 0;
+      overflow: auto;
+
+      p {
+        padding: 0 10px;
+        margin: 0;
+      }
+    }
+
+    .date-status {
+      p {
+        margin: 5px 10px;
+
+        &:nth-last-child(1) {
+          transition: font-size 200ms;
+        }
+      }
+    }
+
+    .select-option {
+      display: flex;
+      justify-content: space-between;
+      border-width: 1px 0 0 0;
+
+      .select,
+      button {
+        margin: 10px;
+      }
+
+      .select {
+        width: 70%;
+      }
+
+      button {
+        width: 30%;
+        background-color: $light-blue;
+        outline: none;
+        border: none;
+        color: white;
+        transition: 200ms;
+        border-radius: 4px;
+
+        &:active {
+          background-color: $button-active;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 3px $button-selected-shadow;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1650px) {
   .selector-block {
     .item {
@@ -772,7 +921,8 @@ button {
 }
 
 @media screen and (max-width: 1450px) {
-  .request {
+  .request,
+  .all-applications {
     .application-item {
       h2 {
         font-size: 18px;
@@ -782,6 +932,14 @@ button {
         p {
           font-size: 16px;
         }
+      }
+    }
+  }
+
+  .all-applications {
+    .date-status {
+      p:nth-last-child(1) {
+        font-size: 14px;
       }
     }
   }
@@ -802,7 +960,8 @@ button {
     }
   }
 
-  .request {
+  .request,
+  .all-applications {
     .application-item {
       width: 90%;
 

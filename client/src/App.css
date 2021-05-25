@@ -922,7 +922,7 @@ button {
 }
 
 .request .application-item .application-yellow {
-  color: yellow;
+  color: orange;
 }
 
 .request .application-item .application-green {
@@ -951,6 +951,176 @@ button {
   font-size: 24px;
 }
 
+.all-applications {
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow-x: auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.all-applications .red {
+  border: 1px solid red;
+}
+
+.all-applications .red .header-application {
+  border: 1px solid red;
+}
+
+.all-applications .red .application-item-description {
+  border: 1px solid red;
+}
+
+.all-applications .red .select-option {
+  border: 1px solid red;
+}
+
+.all-applications .orange {
+  border: 1px solid orange;
+}
+
+.all-applications .orange .header-application {
+  border: 1px solid orange;
+}
+
+.all-applications .orange .application-item-description {
+  border: 1px solid orange;
+}
+
+.all-applications .orange .select-option {
+  border: 1px solid orange;
+}
+
+.all-applications .green {
+  border: 1px solid green;
+}
+
+.all-applications .green .header-application {
+  border: 1px solid green;
+}
+
+.all-applications .green .application-item-description {
+  border: 1px solid green;
+}
+
+.all-applications .green .select-option {
+  border: 1px solid green;
+}
+
+.all-applications .application-item {
+  margin: 5px;
+  width: 45%;
+  height: 45%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: transparent;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.all-applications .application-item .header-application {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-width: 0 0 1px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 15%;
+}
+
+.all-applications .application-item .header-application h2 {
+  margin: 0 0 0 10px;
+  -webkit-transition: font-size 200ms;
+  transition: font-size 200ms;
+}
+
+.all-applications .application-item .header-application button {
+  outline: none;
+  border: none;
+  background: none;
+  color: #0178ff;
+  height: 40px;
+  width: 40px;
+  font-size: 32px;
+  padding: 0;
+}
+
+.all-applications .application-item .header-application button:active {
+  color: #0162d1;
+}
+
+.all-applications .application-item .application-item-description {
+  height: 40%;
+  border-width: 0 0 1px 0;
+  overflow: auto;
+}
+
+.all-applications .application-item .application-item-description p {
+  padding: 0 10px;
+  margin: 0;
+}
+
+.all-applications .application-item .date-status p {
+  margin: 5px 10px;
+}
+
+.all-applications .application-item .date-status p:nth-last-child(1) {
+  -webkit-transition: font-size 200ms;
+  transition: font-size 200ms;
+}
+
+.all-applications .application-item .select-option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-width: 1px 0 0 0;
+}
+
+.all-applications .application-item .select-option .select,
+.all-applications .application-item .select-option button {
+  margin: 10px;
+}
+
+.all-applications .application-item .select-option .select {
+  width: 70%;
+}
+
+.all-applications .application-item .select-option button {
+  width: 30%;
+  background-color: #0178ff;
+  outline: none;
+  border: none;
+  color: white;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  border-radius: 4px;
+}
+
+.all-applications .application-item .select-option button:active {
+  background-color: #0162d1;
+}
+
+.all-applications .application-item .select-option button:focus {
+  -webkit-box-shadow: 0 0 0 3px rgba(1, 120, 255, 0.3);
+          box-shadow: 0 0 0 3px rgba(1, 120, 255, 0.3);
+}
+
 @media screen and (max-width: 1650px) {
   .selector-block .item {
     font-size: 18px;
@@ -964,11 +1134,16 @@ button {
 }
 
 @media screen and (max-width: 1450px) {
-  .request .application-item h2 {
+  .request .application-item h2,
+  .all-applications .application-item h2 {
     font-size: 18px;
   }
-  .request .application-item .date-status p {
+  .request .application-item .date-status p,
+  .all-applications .application-item .date-status p {
     font-size: 16px;
+  }
+  .all-applications .date-status p:nth-last-child(1) {
+    font-size: 14px;
   }
 }
 
@@ -982,13 +1157,16 @@ button {
   .home-selector-block .item {
     font-size: 18px;
   }
-  .request .application-item {
+  .request .application-item,
+  .all-applications .application-item {
     width: 90%;
   }
-  .request .application-item h2 {
+  .request .application-item h2,
+  .all-applications .application-item h2 {
     font-size: 28px;
   }
-  .request .application-item .date-status p {
+  .request .application-item .date-status p,
+  .all-applications .application-item .date-status p {
     font-size: 20px;
   }
 }
