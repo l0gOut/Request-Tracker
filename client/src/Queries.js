@@ -203,6 +203,13 @@ export const GetAllApplicationsAdmin = gql`
         id
         name
         description
+        userId
+        user {
+          department {
+            name
+            number
+          }
+        }
       }
       status {
         id

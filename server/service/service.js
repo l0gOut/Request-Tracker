@@ -89,6 +89,7 @@ const GetAllApplications = async (applications) => {
       },
     ],
   });
+  console.log(applicationList);
   return JSON.parse(JSON.stringify(applicationList));
 };
 
@@ -147,9 +148,20 @@ const GetAllLogin = async () => {
 
 const GetAllApplicationsAdmin = async () => {
   const applicationList = await SequelizeDB.ApplicationStatus.findAll({
-    include: {
-      all: true,
-    },
+    include: [
+      {
+        model: SequelizeDB.Application,
+        include: {
+          model: SequelizeDB.User,
+          include: {
+            model: SequelizeDB.Department,
+          },
+        },
+      },
+      {
+        model: SequelizeDB.Status,
+      },
+    ],
   });
   return JSON.parse(JSON.stringify(applicationList));
 };

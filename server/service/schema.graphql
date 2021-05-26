@@ -31,6 +31,9 @@ type User {
   email: String
   registrationDate: String
   phone: String
+  roleId: ID
+  genderId: ID
+  departmentId: ID
   role: Role
   gender: Gender
   department: Department
@@ -48,6 +51,7 @@ type Application {
   name: String
   description: String
   userId: Int
+  user: User
 }
 
 type Status {

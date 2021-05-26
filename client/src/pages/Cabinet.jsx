@@ -789,6 +789,10 @@ function AllApplications({ number }) {
                 <p>{value.application.description}</p>
               </div>
               <div className="date-status">
+                <p>
+                  {value.application.user.department.number} кабинет "
+                  {value.application.user.department.name}"
+                </p>
                 <p>{value.date.toString().substring(0, 10)}</p>
                 <p>Нынешний статус: {value.status.status}</p>
               </div>
