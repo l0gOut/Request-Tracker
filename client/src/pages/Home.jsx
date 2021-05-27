@@ -204,6 +204,7 @@ function UniqueClaimComponent() {
         className="unique-input"
         label="Заголовок проблемы"
         name="name"
+        maxLength="25"
         value={uniqueClaim.name}
         onChange={onChangeUniqueClaim}
         required

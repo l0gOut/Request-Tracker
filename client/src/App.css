@@ -1121,6 +1121,49 @@ button {
           box-shadow: 0 0 0 3px rgba(1, 120, 255, 0.3);
 }
 
+.create-department {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.create-department .create-department-form {
+  margin: 0 10px;
+}
+
+.create-department .create-department-form .field {
+  margin: 10px 0;
+}
+
+.create-department .create-department-form input {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 40px;
+  outline: none;
+  border: 1px solid gray;
+  background-color: rgba(124, 124, 124, 0.05);
+  padding: 0 0 0 5px;
+  border-radius: 5px;
+  margin-top: 2px;
+}
+
+.create-department .create-department-form input:focus {
+  -webkit-box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
+          box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.3);
+}
+
+@media screen and (max-width: 1850px) {
+  .request .application-item h2,
+  .all-applications .application-item h2 {
+    font-size: 18px;
+  }
+}
+
 @media screen and (max-width: 1650px) {
   .selector-block .item {
     font-size: 18px;
@@ -1163,7 +1206,7 @@ button {
   }
   .request .application-item h2,
   .all-applications .application-item h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
   .request .application-item .date-status p,
   .all-applications .application-item .date-status p {

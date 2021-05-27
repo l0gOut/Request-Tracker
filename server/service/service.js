@@ -89,7 +89,6 @@ const GetAllApplications = async (applications) => {
       },
     ],
   });
-  console.log(applicationList);
   return JSON.parse(JSON.stringify(applicationList));
 };
 
@@ -187,6 +186,14 @@ const ChangeStatus = async (input) => {
   return JSON.parse(JSON.stringify(application));
 };
 
+const CreateDepartment = async (input) => {
+  const department = await SequelizeDB.Department.create({
+    name: input.name,
+    number: input.number,
+  });
+  return JSON.parse(JSON.stringify(department));
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
@@ -206,3 +213,4 @@ module.exports.GetAllLogin = GetAllLogin;
 module.exports.GetAllApplicationsAdmin = GetAllApplicationsAdmin;
 module.exports.GetAllStatus = GetAllStatus;
 module.exports.ChangeStatus = ChangeStatus;
+module.exports.CreateDepartment = CreateDepartment;

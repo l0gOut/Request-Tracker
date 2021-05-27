@@ -20,7 +20,7 @@ function App() {
   Mousetrap.bind("M U S I C", () => setAudioActive(!audioActive));
 
   useEffect(() => {
-    const cookieAuth = Cookie.get("user");
+    const cookieAuth = Cookie.get("RFGKS5");
     if (cookieAuth) {
       setAuth(true);
       setUser(JSON.parse(cookieAuth));

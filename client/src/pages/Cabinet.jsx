@@ -21,6 +21,7 @@ import lodash from "lodash";
 import { store } from "react-notifications-component";
 import Cookie from "js-cookie";
 import Select from "react-select";
+import PropTypes from "prop-types";
 
 function Cabinet() {
   const User = useContext(Context);
@@ -65,11 +66,17 @@ function Cabinet() {
               active={selectedBlock === 3}
               onClick={() => selectorChange(3)}
             >
-              Создать Пользователя
+              Добавление Кабинета
             </Menu.Item>
             <Menu.Item
               active={selectedBlock === 4}
               onClick={() => selectorChange(4)}
+            >
+              Создать Пользователя
+            </Menu.Item>
+            <Menu.Item
+              active={selectedBlock === 5}
+              onClick={() => selectorChange(5)}
             >
               Просмотр Всех Заявок
             </Menu.Item>
@@ -79,8 +86,8 @@ function Cabinet() {
         )}
 
         <Menu.Item
-          active={selectedBlock === 5}
-          onClick={() => selectorChange(5)}
+          active={selectedBlock === 6}
+          onClick={() => selectorChange(6)}
         >
           Выход
         </Menu.Item>
@@ -107,16 +114,23 @@ function Cabinet() {
         {role === "Администратор" ? (
           <>
             <Menu.Item
-              className="create-user"
+              className="create-department"
               as={Container}
               active={selectedBlock === 3}
+            >
+              <CreateDepartmentForm />
+            </Menu.Item>
+            <Menu.Item
+              className="create-user"
+              as={Container}
+              active={selectedBlock === 4}
             >
               <CreateUserForm />
             </Menu.Item>
             <Menu.Item
               className="all-applications"
               as={Container}
-              active={selectedBlock === 4}
+              active={selectedBlock === 5}
             >
               <AllApplications number={selectedBlock} />
             </Menu.Item>
@@ -124,10 +138,10 @@ function Cabinet() {
         ) : (
           ""
         )}
-        <Menu.Item className="quit" as={Container} active={selectedBlock === 5}>
+        <Menu.Item className="quit" as={Container} active={selectedBlock === 6}>
           <Form.Button
             onClick={() => {
-              Cookie.remove("user");
+              Cookie.remove("RFGKS5");
               User.redirectCabinet.setAuth(false);
               User.setUser({});
             }}
@@ -377,6 +391,16 @@ function MyApplications({ number }) {
         </div>
       );
     })
+  );
+}
+
+function CreateDepartmentForm() {
+  return (
+    <Form className="create-department-form">
+      <Form.Input type="text" label="Название кабинета" />
+      <Form.Input type="number" label="Номер кабинета" />
+      <Form.Button type="submit">Добавить</Form.Button>
+    </Form>
   );
 }
 
@@ -747,7 +771,7 @@ function AllApplications({ number }) {
   }
 
   useEffect(() => {
-    if (number === 4) {
+    if (number === 5) {
       allApplication();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -819,5 +843,13 @@ function AllApplications({ number }) {
     </>
   );
 }
+
+MyApplications.propTypes = {
+  number: PropTypes.number.isRequired,
+};
+
+AllApplications.propTypes = {
+  number: PropTypes.number.isRequired,
+};
 
 export default Cabinet;

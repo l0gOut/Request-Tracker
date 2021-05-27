@@ -235,3 +235,13 @@ export const ChangeStatus = gql`
     }
   }
 `;
+
+export const CreateDepartment = gql`
+  mutation ($name: String!, $number: Int!) {
+    createDepartment(input: { name: $name, number: $number }) {
+      id
+      name
+      department
+    }
+  }
+`;

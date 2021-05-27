@@ -18,9 +18,8 @@ function Login() {
 
   const [loginUser, { loading }] = useMutation(LoginMutation, {
     update(_, result) {
-      Cookie.set("user", result.data, {
+      Cookie.set("RFGKS5", result.data, {
         expires: 30,
-        secure: true,
       });
       Auth.redirectCabinet.setAuth(true);
       setRedirect(true);

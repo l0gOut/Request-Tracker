@@ -904,6 +904,46 @@ button {
   }
 }
 
+.create-department {
+  display: flex;
+  flex-direction: column;
+
+  .create-department-form {
+    margin: 0 10px;
+
+    .field {
+      margin: 10px 0;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      height: 40px;
+      outline: none;
+      border: 1px solid gray;
+      background-color: $back-input-color;
+      padding: 0 0 0 5px;
+      border-radius: 5px;
+      margin-top: 2px;
+
+      &:focus {
+        box-shadow: 0 0 0 3px $input-selected-shadow;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1850px) {
+  .request,
+  .all-applications {
+    .application-item {
+      h2 {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1650px) {
   .selector-block {
     .item {
@@ -966,7 +1006,7 @@ button {
       width: 90%;
 
       h2 {
-        font-size: 28px;
+        font-size: 24px;
       }
 
       .date-status {

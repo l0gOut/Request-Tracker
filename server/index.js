@@ -72,6 +72,9 @@ const root = {
   changeStatus: (input) => {
     return Service.ChangeStatus(input.input);
   },
+  createDepartment: (input) => {
+    return Service.CreateDepartment(input.input);
+  },
 };
 
 // GUI GraphQL

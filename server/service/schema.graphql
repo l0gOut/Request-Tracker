@@ -179,4 +179,6 @@ type Mutation {
   getAllStatus: [Status]!
 
   changeStatus(input: ChangeStatus!): ApplicationStatus!
+
+  createDepartment(input: InputDepartment!): Department!
 }
