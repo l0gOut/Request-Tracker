@@ -933,6 +933,42 @@ button {
   }
 }
 
+.selector-block-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.selector-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .exit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12%;
+
+    button {
+      height: 40%;
+      width: 90%;
+      font-size: 24px;
+      border: none;
+      background: $dark-cyan;
+      color: white;
+      text-shadow: 0 0 2px white;
+      transition: 200ms;
+      border-radius: 20px;
+
+      &:hover {
+        box-shadow: 0 0 10px 10px white;
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1850px) {
   .request,
   .all-applications {

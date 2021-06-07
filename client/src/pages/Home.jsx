@@ -16,7 +16,7 @@ function Home() {
           Шаблоны создания
         </Menu.Item>
         <Menu.Item active={activeItem === 2} onClick={() => setActiveItem(2)}>
-          Создать индивидуальную заявку
+          Создать уникальную заявку
         </Menu.Item>
       </Menu>
       <div
@@ -79,7 +79,7 @@ function TemplateFormComponent() {
       setMutationReady(true);
     } else {
       store.addNotification({
-        message: "Сначало зарегистрируйтесь!",
+        message: "Сначало авторизуйтесь!",
         type: "danger",
         insert: "top",
         container: "top-right",
@@ -181,7 +181,7 @@ function UniqueClaimComponent() {
       setMutationReady(true);
     } else {
       store.addNotification({
-        message: "Сначало зарегистрируйтесь!",
+        message: "Сначало авторизуйтесь!",
         type: "danger",
         insert: "top",
         container: "top-right",

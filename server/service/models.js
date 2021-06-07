@@ -60,30 +60,6 @@ const Department = SequelizeDB.define(
   }
 );
 
-const Login = SequelizeDB.define(
-  "login",
-  {
-    login: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    // Foreign key User
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-  },
-  {
-    createdAt: false,
-    updatedAt: false,
-    tableName: "login",
-  }
-);
-
 const User = SequelizeDB.define(
   "user",
   {
@@ -130,6 +106,30 @@ const User = SequelizeDB.define(
     createdAt: false,
     updatedAt: false,
     tableName: "user",
+  }
+);
+
+const Login = SequelizeDB.define(
+  "login",
+  {
+    login: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    // Foreign key User
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    createdAt: false,
+    updatedAt: false,
+    tableName: "login",
   }
 );
 

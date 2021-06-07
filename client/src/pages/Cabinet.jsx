@@ -15,6 +15,7 @@ import {
   GetAllApplicationsAdmin,
   GetAllStatus,
   ChangeStatus,
+  CreateDepartment,
 } from "../Queries";
 import { Menu, Container, Header, Form, Button } from "semantic-ui-react";
 import lodash from "lodash";
@@ -48,49 +49,54 @@ function Cabinet() {
   return (
     <div className="main-content-box main-cabinet-box">
       <Menu className="selector-block">
-        <Menu.Item
-          active={selectedBlock === 1}
-          onClick={() => selectorChange(1)}
+        <div className="selector-block-menu">
+          <Menu.Item
+            active={selectedBlock === 1}
+            onClick={() => selectorChange(1)}
+          >
+            Профиль
+          </Menu.Item>
+          <Menu.Item
+            active={selectedBlock === 2}
+            onClick={() => selectorChange(2)}
+          >
+            Мои Заявки
+          </Menu.Item>
+          {role === "Администратор" ? (
+            <>
+              <Menu.Item
+                active={selectedBlock === 3}
+                onClick={() => selectorChange(3)}
+              >
+                Добавление Кабинета
+              </Menu.Item>
+              <Menu.Item
+                active={selectedBlock === 4}
+                onClick={() => selectorChange(4)}
+              >
+                Создать Пользователя
+              </Menu.Item>
+              <Menu.Item
+                active={selectedBlock === 5}
+                onClick={() => selectorChange(5)}
+              >
+                Просмотр Всех Заявок
+              </Menu.Item>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+        <Form.Button
+          className="exit-button"
+          onClick={() => {
+            Cookie.remove("RFGKS5");
+            User.redirectCabinet.setAuth(false);
+            User.setUser({});
+          }}
         >
-          Профиль
-        </Menu.Item>
-        <Menu.Item
-          active={selectedBlock === 2}
-          onClick={() => selectorChange(2)}
-        >
-          Мои Заявки
-        </Menu.Item>
-        {role === "Администратор" ? (
-          <>
-            <Menu.Item
-              active={selectedBlock === 3}
-              onClick={() => selectorChange(3)}
-            >
-              Добавление Кабинета
-            </Menu.Item>
-            <Menu.Item
-              active={selectedBlock === 4}
-              onClick={() => selectorChange(4)}
-            >
-              Создать Пользователя
-            </Menu.Item>
-            <Menu.Item
-              active={selectedBlock === 5}
-              onClick={() => selectorChange(5)}
-            >
-              Просмотр Всех Заявок
-            </Menu.Item>
-          </>
-        ) : (
-          ""
-        )}
-
-        <Menu.Item
-          active={selectedBlock === 6}
-          onClick={() => selectorChange(6)}
-        >
-          Выход
-        </Menu.Item>
+          Выйти
+        </Form.Button>
       </Menu>
       <Menu
         className={
@@ -138,17 +144,6 @@ function Cabinet() {
         ) : (
           ""
         )}
-        <Menu.Item className="quit" as={Container} active={selectedBlock === 6}>
-          <Form.Button
-            onClick={() => {
-              Cookie.remove("RFGKS5");
-              User.redirectCabinet.setAuth(false);
-              User.setUser({});
-            }}
-          >
-            Выйти
-          </Form.Button>
-        </Menu.Item>
       </Menu>
     </div>
   );
@@ -395,10 +390,66 @@ function MyApplications({ number }) {
 }
 
 function CreateDepartmentForm() {
-  return (
-    <Form className="create-department-form">
-      <Form.Input type="text" label="Название кабинета" />
-      <Form.Input type="number" label="Номер кабинета" />
+  const [departmentData, setDepartmentData] = useState({
+    name: "",
+    number: "",
+  });
+
+  const [createDepartment, { loading }] = useMutation(CreateDepartment, {
+    onCompleted(data) {
+      store.addNotification({
+        message: `Кабинет ${data.createDepartment.name} ${data.createDepartment.number} был добавлен в базу успешно`,
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          showIcon: true,
+          click: true,
+        },
+      });
+    },
+    variables: {
+      name: departmentData.name,
+      number: parseInt(departmentData.number),
+    },
+  });
+
+  function onChange(value) {
+    setDepartmentData({
+      ...departmentData,
+      [value.target.name]: value.target.value,
+    });
+  }
+
+  function onSubmit() {
+    createDepartment();
+  }
+
+  return loading ? (
+    <div className="loading"></div>
+  ) : (
+    <Form className="create-department-form" onSubmit={() => onSubmit()}>
+      <Form.Input
+        required
+        name="name"
+        maxLength="100"
+        type="text"
+        label="Название кабинета"
+        value={departmentData.name}
+        onChange={(value) => onChange(value)}
+      />
+      <Form.Input
+        required
+        name="number"
+        min="1"
+        max="999"
+        type="number"
+        label="Номер кабинета"
+        value={departmentData.number}
+        onChange={(value) => onChange(value)}
+      />
       <Form.Button type="submit">Добавить</Form.Button>
     </Form>
   );
@@ -717,7 +768,10 @@ function AllApplications({ number }) {
       },
       variables: {
         id: applicationId,
-        statusId: applicationInfo[applicationId].id,
+        statusId:
+          applicationInfo[applicationId] === undefined
+            ? 0
+            : applicationInfo[applicationId].id,
       },
     }
   );
@@ -813,11 +867,11 @@ function AllApplications({ number }) {
                 <p>{value.application.description}</p>
               </div>
               <div className="date-status">
+                <p>{value.date.toString().substring(0, 10)}</p>
                 <p>
                   {value.application.user.department.number} кабинет "
                   {value.application.user.department.name}"
                 </p>
-                <p>{value.date.toString().substring(0, 10)}</p>
                 <p>Нынешний статус: {value.status.status}</p>
               </div>
               <div className="select-option">

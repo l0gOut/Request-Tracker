@@ -241,7 +241,7 @@ export const CreateDepartment = gql`
     createDepartment(input: { name: $name, number: $number }) {
       id
       name
-      department
+      number
     }
   }
 `;
