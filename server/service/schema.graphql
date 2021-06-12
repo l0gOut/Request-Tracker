@@ -145,6 +145,8 @@ type Query {
   getAllGender: [Gender]!
 
   getAllDepartment: [Department]!
+
+  resetAllDataBaseDataDANGER: String!
 }
 
 type Mutation {

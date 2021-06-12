@@ -194,6 +194,78 @@ const CreateDepartment = async (input) => {
   return JSON.parse(JSON.stringify(department));
 };
 
+const ResetAllDataBaseData = async () => {
+  const arrayTemplates = [
+    { name: "Компьютер", description: "Не работает" },
+    { name: "Мышка", description: "Не работает" },
+    { name: "Экран", description: "Не работает" },
+    { name: "Клавиатура", description: "Не работает" },
+    { name: "Колонки", description: "Не работает" },
+  ];
+
+  const gender = [
+    { codeGender: "М", genderName: "Мужчина" },
+    { codeGender: "Ж", genderName: "Женщина" },
+  ];
+
+  const status = ["Не рассмотрена", "Выполняется...", "Завершена!"];
+
+  const roleName = ["Администратор", "Пользователь"];
+
+  await SequelizeDB.Sequelize.sync({ force: true });
+
+  for (i in arrayTemplates) {
+    await SequelizeDB.ApplicationTemplate.create({
+      name: arrayTemplates[i].name,
+      description: arrayTemplates[i].description,
+    });
+  }
+
+  for (i in gender) {
+    await SequelizeDB.Gender.create({
+      codeGender: gender[i].codeGender,
+      genderName: gender[i].genderName,
+    });
+  }
+
+  for (i in status) {
+    await SequelizeDB.Status.create({
+      status: status[i],
+    });
+  }
+
+  for (i in roleName) {
+    await SequelizeDB.Role.create({
+      roleName: roleName[i],
+    });
+  }
+
+  await SequelizeDB.Department.create({
+    name: "Администраторская",
+    number: 0,
+  });
+
+  await SequelizeDB.User.create({
+    firstName: "Администратор",
+    lastName: "Администратор",
+    middleName: "Администратор",
+    email: "admin@yandex.ru",
+    registrationDate: new Date(),
+    phone: "89000000000",
+    roleId: 1,
+    genderId: 1,
+    departmentId: 1,
+  });
+
+  await SequelizeDB.Login.create({
+    login: "admin",
+    password: "admin",
+    userId: 1,
+  });
+
+  return "База Данных была пересоздана! Логин: admin Пароль: admin";
+};
+
 // Exports
 module.exports.GetAllApplicationTemplates = GetAllApplicationTemplates;
 module.exports.CreateApplicationTemplate = CreateApplicationTemplate;
@@ -214,3 +286,4 @@ module.exports.GetAllApplicationsAdmin = GetAllApplicationsAdmin;
 module.exports.GetAllStatus = GetAllStatus;
 module.exports.ChangeStatus = ChangeStatus;
 module.exports.CreateDepartment = CreateDepartment;
+module.exports.ResetAllDataBaseData = ResetAllDataBaseData;

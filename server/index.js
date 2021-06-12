@@ -75,6 +75,9 @@ const root = {
   createDepartment: (input) => {
     return Service.CreateDepartment(input.input);
   },
+  resetAllDataBaseDataDANGER: () => {
+    return Service.ResetAllDataBaseData();
+  },
 };
 
 // GUI GraphQL
